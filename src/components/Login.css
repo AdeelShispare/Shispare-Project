@@ -1,0 +1,145 @@
+
+.login-container {
+    display: flex;
+   background: linear-gradient(to right, #2a3b70, #2467AA); 
+    /* background: linear-gradient(to top to left, #032368, #2467AA);  */
+    height: 100vh;
+  }
+  
+  .left-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+   background: linear-gradient(to top to left, #032368, #2467AA);  
+    color: #fff;
+  }
+  
+  .logo h1 {
+    font-size: 44px;
+    margin-bottom: 50px;
+  }
+  .logo span{
+    color: transparent; 
+    -webkit-text-fill-color: transparent; 
+    -webkit-text-stroke: 2px white; 
+    
+  }
+  .logo img {
+    width: 100%;
+    margin: 20px 0;
+  }
+  .imgtext {
+    margin-top: -20px;
+    font-size: 40px;
+    font-weight: 500;
+  }
+  .description {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 14px;
+  }
+  
+  .right-section {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #ffffff;
+    padding: 20px;
+  }
+  
+  .login-form {
+    width: 400px;
+    text-align: center;
+  }
+  
+  .login-form h2 {
+    font-size: 24px;
+   font-weight: 600;
+  }
+  
+  .login-form p {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+  .form-heading{
+    display: flex;
+  }
+  .form-group {
+    position: relative;
+    margin-bottom: 20px;
+  }
+  
+  input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  .formlable{
+    display: flex;
+    margin-bottom: 10px;
+  }
+  .password-toggle {
+    position: absolute;
+    top: 70%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+  
+  .form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+.abc{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.checkbox-label{
+    font-size: 16px;
+}
+  .login-button {
+    background: #3EA9F5;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+   
+    width: 100%;
+  }
+.signup p span{
+    color: #3EA9F5;
+}
+  .login-button:hover {
+    background: #3EA9F5;
+  }
+  
+  p:last-child {
+    margin-top: 10px;
+    font-size: 14px;
+  }
+  .signup{
+    color: #3EA9F5;
+  }
+  a {
+    color: #2a3b70;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
+
+
+
+  
