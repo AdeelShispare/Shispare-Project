@@ -57,7 +57,7 @@ background: linear-gradient(90deg, #213264 0%, #2467AA 35%, rgb(225, 234, 236) 1
   }
   
   .login-form {
-    width: 500px;
+    width: 400px;
     text-align: center;
     margin-left: -100px;
   }
@@ -105,7 +105,7 @@ background: linear-gradient(90deg, #213264 0%, #2467AA 35%, rgb(225, 234, 236) 1
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
-    width: 520px;
+    width: 420px;
   }
 .abc{
     display: flex;
