@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import './Login.css'; 
-import img from "../Assets/Illustration.svg"
+import img from "../Assets/Illustration.svg";
+import img1 from "../Assets/chats.svg"
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 const Login = () => {
@@ -14,7 +16,7 @@ const Login = () => {
     <div className="login-container">
       <div className="left-section">
         <div className="logo">
-          <h1>LOGO <span>IPSUM</span></h1>
+          <h1>LOGO<span>IPSUM</span></h1>
           <img src={img} alt="Connecting Talent" />
          
 
@@ -22,7 +24,7 @@ const Login = () => {
             <br />Fostering Growth</p>
 
           
-          <p className="description">
+          <p id="description">
            Fostering a Positive work culture,and ensuring <br />compliance with employment laws and regulations.
           </p>
         </div>
@@ -33,15 +35,15 @@ const Login = () => {
           <p className="form-heading">Enter your credentials to access your account</p>
           <form>
           <div className="form-group">
-  <label htmlFor="email"  className='formlable'>Email Address*</label>
-  <input type="email" id="email" placeholder="abc@gmail.com" required />
+  <label htmlFor="email"  className='formlable'>Email address*</label>
+  <input type="email" id="email" placeholder="abc@gmail.com" required />  
 </div>
 
             <div className="form-group">
             <label htmlFor="password" className='formlable'>Password*</label>
               <input
                 type={showPassword ? 'text' : 'password'}
-                placeholder="******"
+                placeholder="*********"
                 required
               />
                 <FontAwesomeIcon
@@ -66,9 +68,15 @@ const Login = () => {
             <button className="login-button" type="submit">
               Login
             </button>
-            <p>Don't have an account? <span className='signup'>Sign up here.</span></p>
+            <p>Don't have an account? <span className='signup'>Sign up</span></p>
           </form>
         </div>
+       
+<div className="xyz">
+
+        <img src={img1} alt=" Chat" id='messageicon' />
+</div>
+        
       </div>
     </div>
   );
