@@ -1,8 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
-import Sidebar from './components/Sidebar';
+import Sidebar from './sharedcomponents/Sidebar';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Navbar from "./components/Navbar";
+import Navbar from "./sharedcomponents/Navbar";
 import Dashboard from './components/Dashboard';
 import Recruitment from './components/Recruitment';
 import Employee from './components/Employee';

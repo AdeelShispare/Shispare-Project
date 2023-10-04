@@ -9,21 +9,22 @@ function Navbar() {
   return (
     <div className='navbar'>
         <div className='search'>
-     <h1>L0G0
+     <h1 style={{color:"darkblue", marginLeft:"20px"}}>L0G0
        <span>IPSUM</span>
        </h1> 
        <div className='icon'>
-       <FaBell />
+       <FaBell size={15}/>
       </div>
       <div className='Icon'>
-      <FaSearch/>
+      <FaSearch size={15}/>
       </div>
       
        <div className='nameicon'>
-       <p>devon lane</p>
+       <p>Devon Lane</p>
        </div>
        <div className='person'>
-       <FaUserCircle size={50} />
+       <FaUserCircle size={35} />
+       <item className="dropdown4"><i class="fas fa-chevron-circle-down"></i></item>
        </div>
        </div>
     </div>
