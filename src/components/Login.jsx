@@ -34,7 +34,7 @@ const Login = () => {
           <form>
           <div className="form-group">
   <label htmlFor="email"  className='formlable'>Email Address*</label>
-  <input type="email" id="email" placeholder="abc@gmail.com" />
+  <input type="email" id="email" placeholder="abc@gmail.com" required />
 </div>
 
             <div className="form-group">
@@ -42,6 +42,7 @@ const Login = () => {
               <input
                 type={showPassword ? 'text' : 'password'}
                 placeholder="******"
+                required
               />
                 <FontAwesomeIcon
           icon={showPassword ? faEyeSlash : faEye}
