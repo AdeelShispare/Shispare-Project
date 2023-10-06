@@ -1,0 +1,30 @@
+.menu-container {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    margin-left: 210px;
+border: 1px solid rgba(106, 84, 84, 0.482);
+border-radius: 5px;
+margin-right: 8px;
+padding: 30px;
+  }
+  
+  .menu-option {
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+    margin-right: 25px;
+    border-radius: 5px;
+    margin-left: 5px;
+  }
+  
+  .menu-option:hover {
+    background-color: lightblue;
+    color: white;
+  }
+  
+  .menu-option.selected {
+    background-color: #3EAAF5;
+    color: white;
+  }
+  
