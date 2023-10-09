@@ -31,13 +31,13 @@ function Recruitment() {
     { field: 'approval', header: 'APPROVALS' },
     { field: 'addedOn', header: 'ADDED ON' },
     { field: 'action', header: 'ACTION' },
-    // Add more columns as needed
+   
   ];
   return (
     <div>
          <Navbar/>
       <Sidebar/>
-      <h1 style={{textAlign:"center"}}>Recruitment</h1>
+      <h1 style={{marginRight:"920px"}}>Recruitment</h1>
       <Menu/>
       <SharedGrid data={data} columns={RecruitmentColumns}/>
     </div>

@@ -12,6 +12,7 @@ function Navbar() {
      <h1 style={{color:"darkblue", marginLeft:"20px"}}>L0G0
        <span className='ipsum'>IPSUM</span>
        </h1> 
+       <div className='nav-right'>
        <div className='icon'>
        <FaBell size={15}/>
       </div>
@@ -25,6 +26,7 @@ function Navbar() {
        <div className='person'>
        <FaUserCircle size={35} />
        <item className="dropdown4"><i class="fas fa-chevron-circle-down"></i></item>
+       </div>
        </div>
        </div>
     </div>

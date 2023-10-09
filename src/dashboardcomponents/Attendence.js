@@ -2,7 +2,6 @@ import React from 'react'
 import { BsPerson } from 'react-icons/bs';
 import Navbar from '../Utils/Navbar.js';
 import Sidebar from '../Utils/Sidebar';
-import Data from '../Data/Data.jsx';
 import SharedGrid from './SharedGrid.jsx';
 import Menu from '../Utils/Menu.jsx';
 
@@ -33,13 +32,13 @@ function Attendence() {
     { field: 'approval', header: 'APPROVALS' },
     { field: 'addedOn', header: 'ADDED ON' },
     { field: 'action', header: 'ACTION' },
-    // Add more columns as needed
+    
   ];
   return (
     <div>
 <Navbar/>
       <Sidebar/>
-      <h1 style={{marginright:"600px"}}>Attendance</h1>
+      <h1 style={{marginRight:"920px"}}>Attendance</h1>
       <Menu/>
       <SharedGrid data={data} columns={AttendanceColumns}/>
     </div>

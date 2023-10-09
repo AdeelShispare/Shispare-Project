@@ -2,7 +2,6 @@ import React from 'react'
 import Navbar from '../Utils/Navbar.js';
 import Sidebar from '../Utils/Sidebar';
 import SharedGrid from './SharedGrid.jsx';
-import { Button } from 'primereact/button';
 import Menu from '../Utils/Menu.jsx';
         import { BsPerson } from 'react-icons/bs';
 function Payroll() {
@@ -32,13 +31,13 @@ function Payroll() {
     { field: 'approval', header: 'APPROVALS' },
     { field: 'addedOn', header: 'ADDED ON' },
     { field: 'action', header: 'ACTION' },
-    // Add more columns as needed
+   
   ];
   return (
     <div>
          <Navbar/>
       <Sidebar/>
-      <h1 style={{textAlign:"center"}}>Payroll</h1>
+      <h1 style={{marginRight:"980px"}}>Payroll</h1>
      <Menu/>
      <SharedGrid data={data} columns={PayrollColumns}/>
 </div>

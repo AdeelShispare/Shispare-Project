@@ -76,10 +76,10 @@
   }
   .nameicon{
     color: black;
-    margin-right: -9px;
+    margin-right: 10px;
    
   }
-  .navbar{
+  /* .navbar{
     border-bottom: 1px solid #ccc ;
     height: 55px;
   
@@ -87,6 +87,12 @@
   .person{
     margin-right: 60px;
   
+  } */
+  .nav-right{
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-right: 20px;
   }
   .help{
     padding: 8px 16px 16px 20px;
@@ -133,14 +139,21 @@
     margin-top: 5px;
   }
   .dropdown4 {
-    position: relative;
+     position: absolute; 
+     margin-top: 3px;
+     /* display: flex; */
+     margin-left: -10px;
+     
   }
   
   .dropdown4 i {
     position: absolute;
-    margin-top: 10px;
-    margin-left: 10px;
+     margin-top: 10px; 
+   margin-left: 10px; 
     color:gray;
+    /* margin-right: 20px; */
+    /* position: relative;
+    top: 5%; */
   }
   .dropdown {
     position: absolute;

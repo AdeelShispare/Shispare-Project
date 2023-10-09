@@ -31,13 +31,13 @@ function Reports() {
     { field: 'approval', header: 'APPROVALS' },
     { field: 'addedOn', header: 'ADDED ON' },
     { field: 'action', header: 'ACTION' },
-    // Add more columns as needed
+
   ];
   return (
     <div>
         <Navbar/>
       <Sidebar/>
-      <h1 style={{textAlign:"center"}}>Reports</h1>
+      <h1 style={{marginRight:"980px"}}>Reports</h1>
       <Menu/>
       <SharedGrid data={data} columns={ReportsColumns}/>
     </div>

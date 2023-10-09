@@ -31,13 +31,13 @@ function Leave() {
     { field: 'approval', header: 'APPROVALS' },
     { field: 'addedOn', header: 'ADDED ON' },
     { field: 'action', header: 'ACTION' },
-    // Add more columns as needed
+
   ];
   return (
     <div>
       <Navbar/>
       <Sidebar/>
-      <h1 style={{textAlign:"center"}}>Leave</h1>
+      <h1 style={{marginRight:"980px"}}>Leave</h1>
       <Menu/>
       <SharedGrid data={data} columns={LeaveColumns} />
     </div>
