@@ -75,7 +75,7 @@ function Dashboard() {
       <Navbar/>
       <Sidebar/>
     
-      <h1 >Dashboard</h1>
+      <h1 className='h1' >Dashboard</h1>
       <Menu/>
 <SharedGrid data={data} columns={DashboardColumns} flex justify-content-center align-content-center/>
 
