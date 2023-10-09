@@ -11,3 +11,38 @@
 .h1{
     margin-right: 920px;
 }
+/* Dashboard.css */
+.dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .action-button {
+    background-color: transparent;
+    color: #333;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 120px;
+    z-index: 1;
+  }
+  
+  .dropdown-content button {
+    background-color: transparent;
+    border: none;
+    padding: 5px 10px;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+  }
+  
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  

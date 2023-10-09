@@ -1,14 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "../Utils/Navbar.js";
 import Sidebar from "../Utils/Sidebar";
 import SharedGrid from "./SharedGrid";
 import { BsPerson } from "react-icons/bs";
 import "./Dashboard.css";
 import Menu from "../Utils/Menu";
+
 function Dashboard() {
-  
- 
+  const [selectedAction, setSelectedAction] = useState(null);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
   const data = [];
+
+  const handleActionClick = (entryId) => {
+    setSelectedAction(entryId);
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const handleEditClick = (entry) => {
+    // Implement edit functionality here for the selected entry
+    console.log("Editing entry:", entry);
+  };
+
+  const handleViewClick = (entry) => {
+    // Implement view functionality here for the selected entry
+    console.log("Viewing entry:", entry);
+  };
 
   for (let i = 3; i <= 17; i++) {
     const entry = {
@@ -22,11 +39,29 @@ function Dashboard() {
       addedOn: `2023-01-07 ${(i % 12) + 1}:${(i % 60)
         .toString()
         .padStart(2, "0")} ${i < 12 ? "AM" : "PM"}`,
-      action: "...",
     };
 
-    data.push(entry);
+    data.push({
+      ...entry,
+      actions: (
+        <div className="dropdown">
+          <button
+            className="action-button"
+            onClick={() => handleActionClick(entry.id)}
+          >
+            ...
+          </button>
+          {isDropdownOpen && selectedAction === entry.id && (
+            <div className="dropdown-content">
+              <button onClick={() => handleEditClick(entry)}>Edit</button>
+              <button onClick={() => handleViewClick(entry)}>View</button>
+            </div>
+          )}
+        </div>
+      ),
+    });
   }
+
   const DashboardColumns = [
     { field: "employeeNumber", header: "EMPLOYEE#" },
     { field: "employeeName", header: "EMPLOYEE" },
@@ -35,8 +70,13 @@ function Dashboard() {
     { field: "status", header: "STATUS" },
     { field: "approval", header: "APPROVALS" },
     { field: "addedOn", header: "ADDED ON" },
-    { field: "action", header: "ACTION" },
+    {
+      field: "actions",
+      header: "ACTIONS",
+      render: (rowData) => rowData.actions,
+    },
   ];
+
   return (
     <div>
       <Navbar />

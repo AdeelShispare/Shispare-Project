@@ -20,7 +20,7 @@ function Sidebar() {
         <li>
           <Link className='hello' to="/employee">
             <i className="fas fa-user-tie"></i> Employee 
-            <item className="dropdown"><i class="fas fa-chevron-circle-down"></i> </item> 
+            <item className="dropdowns"><i class="fas fa-chevron-circle-down"></i> </item> 
           </Link>
         </li>
         <li>

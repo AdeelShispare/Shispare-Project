@@ -155,9 +155,9 @@ margin-right: 20px;
     /* position: relative;
     top: 5%; */
   }
-  .dropdown {
+  .dropdowns {
     position: absolute;
-    left: 45%;
+    left: 85%;
     top: 10;
     
 }
