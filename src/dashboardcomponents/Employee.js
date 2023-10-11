@@ -42,6 +42,7 @@ function Employee() {
     { field: 'firstName', header: 'FIRST NAME' },
     { field: 'id', header: 'ID' },
     { field: 'lastName', header: 'LAST NAME' },
+    
  
   ];
   return (
