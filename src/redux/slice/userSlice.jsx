@@ -1,9 +1,16 @@
 import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
-
-export const fetchUsers=createAsyncThunk("fetchusers",async()=>{
-    const response=await fetch("https://hub.dummyapis.com/employee?noofRecords=10&idStarts=1001");
-    return response.json();
-})
+import fetchData from "../apiUtils"
+export const fetchUsers=createAsyncThunk(
+    "fetchApiData",
+    async ({ method, url, body, headers }) => {
+      try {
+        const response = await fetchData({ method, url, body, headers });
+        return response;
+      } catch (error) {
+        throw new Error(`Fetch API data error: ${error.message}`);
+      }
+    }
+  );
 const initialState = {
 
     isLoading: false,

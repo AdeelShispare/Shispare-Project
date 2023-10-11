@@ -6,13 +6,15 @@ import Menu from '../Utils/Menu.jsx';
 import { BsPerson } from 'react-icons/bs';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUsers } from '../redux/slice/userSlice.jsx';
+import { fetchData } from "../redux/apiUtils"
 function Employee() {
   const dispatch=useDispatch();
   const state = useSelector((state) => state.data);
-  useEffect(() => {
-    dispatch(fetchUsers());
-  }, [dispatch]);
+  
 
+useEffect(() => {
+    dispatch(fetchUsers({ method: 'POST', url: 'https://hub.dummyapis.com/employee?noofRecords=10&idStarts=1001' }));
+  }, [dispatch]);
   const data = state.data; 
   console.log(data)
 
