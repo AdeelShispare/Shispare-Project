@@ -35,14 +35,15 @@ function Employee() {
   //   data.push(entry);
   // }
   const EmployeeeColumns = [
+    { field: 'id', header: 'ID' },
+    { field: 'firstName', header: 'FIRST NAME' },
+    { field: 'lastName', header: 'LAST NAME' },
     { field: 'address', header: 'ADDRESS' },
     { field: 'age', header: 'AGE' },
     { field: 'contactNumber', header: 'CONTACT NUMBER' },
     { field: 'dob', header: 'DATE OF BIRTH' },
     { field: 'email', header: 'EMAIL' },
-    { field: 'firstName', header: 'FIRST NAME' },
-    { field: 'id', header: 'ID' },
-    { field: 'lastName', header: 'LAST NAME' },
+   
     
  
   ];
