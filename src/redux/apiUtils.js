@@ -11,7 +11,7 @@ export const fetchData = async (method, url) => {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
 
-    return response.data; // Access the response data directly
+    return response.data; 
   } catch (error) {
     throw new Error(`Fetch error: ${error.message}`);
   }

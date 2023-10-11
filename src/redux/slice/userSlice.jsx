@@ -3,9 +3,10 @@ import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
 import { fetchData } from "../apiUtils";
 export const fetchUsers=createAsyncThunk(
     "fetchusers",
-    async (_, thunkAPI) => {
+    async ({ method, url }) => {
+      // const { method, url } = options;
       try {
-        const response = await fetchData( 'GET', 'https://hub.dummyapis.com/employee?noofRecords=10&idStarts=1001' );
+        const response = await fetchData(method,url );
       console.log(response)
         return response;
       } catch (error) {
