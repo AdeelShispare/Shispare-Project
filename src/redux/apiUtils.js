@@ -1,20 +1,17 @@
+import axios from "axios";
 
-export default async function fetchData({ method, url, body, headers }) {
+export const fetchData = async (method, url) => {
   try {
-    const response = await fetch(url, {
-      method,
-      headers: {
-        ...headers,
-        'Content-Type': 'application/json',
-      },
-      body: body ? JSON.stringify(body) : undefined,
+    const response = await axios({
+      method: method,
+      url: url,
     });
 
-    if (!response.ok) {
+    if (response.status !== 200) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
 
-    return response.json();
+    return response.data; // Access the response data directly
   } catch (error) {
     throw new Error(`Fetch error: ${error.message}`);
   }
