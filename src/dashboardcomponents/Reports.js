@@ -17,7 +17,7 @@ function Reports() {
   // console.log(data)
   const data = [];
 
-  for (let i = 3; i <= 27; i++) {
+  for (let i = 3; i <= 487; i++) {
     const entry = {
       id: i,
       employeeNumber: `EMP00${i}`,
@@ -47,7 +47,7 @@ function Reports() {
     <div>
         <Navbar/>
       <Sidebar/>
-      <h1 style={{marginRight:"980px"}}>Reports</h1>
+      <h1 style={{marginRight:"980px",paddingTop:"50px"}}>Reports</h1>
       <Menu/>
       <SharedGrid data={data} columns={ReportsColumns}/>
     

@@ -6,6 +6,7 @@
     position: fixed;
     left: 0;
     border-right: 1px solid #ccc;
+    margin-top: 20px;
   }
   
   ul {
@@ -161,3 +162,22 @@ margin-right: 20px;
     top: 10;
     
 }
+.navbar{
+  width: 100%;
+  border-bottom: 1px solid #ccc ;
+  height: 55px;
+  position:fixed;
+  background-color: white;
+  z-index:1;
+  margin-top: -22px;
+  
+}
+/* .Sidebar {
+  width: 200px;
+  height: 100%;
+  background-color: rgb(0, 0, 77);
+  color: #fff;
+  position: fixed;
+  left: 0;
+  border-right: 1px solid #ccc;
+} */

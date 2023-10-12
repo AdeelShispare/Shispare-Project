@@ -6,3 +6,18 @@
     border-image: initial;
     padding: 10px;
 }
+.p-paginator .p-paginator-current {
+    background-color: transparent;
+    border: 0 none;
+    color: #6c757d;
+    min-width: 3rem;
+    height: 3rem;
+    margin: auto auto auto -1rem;
+    padding: 0 0.5rem;
+   
+}
+.p-paginator .p-paginator-last {
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    margin-right: 380px;
+}

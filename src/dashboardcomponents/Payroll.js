@@ -37,7 +37,7 @@ function Payroll() {
     <div>
          <Navbar/>
       <Sidebar/>
-      <h1 style={{marginRight:"980px"}}>Payroll</h1>
+      <h1 style={{marginRight:"980px",paddingTop:"50px"}}>Payroll</h1>
      <Menu/>
      <SharedGrid data={data} columns={PayrollColumns}/>
 </div>

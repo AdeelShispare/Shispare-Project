@@ -51,7 +51,7 @@ function Employee() {
     <div>
       <Navbar/>
       <Sidebar/>
-      <h1 style={{marginRight:"920px"}}>Employee</h1>
+      <h1 style={{marginRight:"920px",paddingTop:"50px"}}>Employee</h1>
       <Menu/>
       <SharedGrid data={state} columns={EmployeeeColumns} />
     </div>

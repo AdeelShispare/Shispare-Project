@@ -37,7 +37,7 @@ function Leave() {
     <div>
       <Navbar/>
       <Sidebar/>
-      <h1 style={{marginRight:"980px"}}>Leave</h1>
+      <h1 style={{marginRight:"980px",paddingTop:"50px"}}>Leave</h1>
       <Menu/>
       <SharedGrid data={data} columns={LeaveColumns} />
     </div>

@@ -9,9 +9,10 @@ const SharedGrid = ({ data,columns }) => {
     const [selectedProducts, setSelectedProducts] = useState(null);
     const [rowClick, setRowClick] = useState(true);
     const [first, setFirst] = useState(0);
-    const [rows, setRows] = useState(7);
+    const [rows, setRows] = useState(5);
     const onPageChange = (event) => {
       setFirst(event.first);
+      setRows(event.rows);
   };
   const startRecord = first + 1;
   const endRecord = Math.min(first + rows, data.length);
@@ -21,7 +22,7 @@ const SharedGrid = ({ data,columns }) => {
     <div className="card" style={{ marginLeft: "210px", marginRight: "15px" }}>
     <DataTable
           value={data}
-          rows={7}
+          rows={rows}
           first={first}
           paginator={true}
           onPage={onPageChange}
@@ -30,8 +31,10 @@ const SharedGrid = ({ data,columns }) => {
           onSelectionChange={(e) => setSelectedProducts(e.value)}
           dataKey="id"
           tableStyle={{ minWidth: '50rem' }}
-          paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink  CurrentPageReport "
-           currentPageReportTemplate={`Results: ${startRecord}-${endRecord} of ${totalRecords}`}
+          paginatorTemplate="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown  "
+          rowsPerPageOptions={[5, 10, 15,20,25]} 
+          currentPageReportTemplate={`Results: ${startRecord}-${endRecord} of ${totalRecords}`}
+
         >
         <Column selectionMode="multiple" headerStyle={{ width: '3rem' }} />
         {columns.map((column) => (
@@ -47,7 +50,7 @@ const SharedGrid = ({ data,columns }) => {
           headerStyle={{ width: "6rem" }}
         /> */}
       </DataTable>
-     
+   
     </div>
   </div>
 );

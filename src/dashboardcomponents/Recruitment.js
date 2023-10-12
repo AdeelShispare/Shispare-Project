@@ -37,7 +37,7 @@ function Recruitment() {
     <div>
          <Navbar/>
       <Sidebar/>
-      <h1 style={{marginRight:"920px"}}>Recruitment</h1>
+      <h1 style={{marginRight:"920px",paddingTop:"50px"}}>Recruitment</h1>
       <Menu/>
       <SharedGrid data={data} columns={RecruitmentColumns}/>
     </div>

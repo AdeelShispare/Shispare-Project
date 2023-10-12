@@ -38,7 +38,7 @@ function Attendence() {
     <div>
 <Navbar/>
       <Sidebar/>
-      <h1 style={{marginRight:"920px"}}>Attendance</h1>
+      <h1 style={{marginRight:"920px",paddingTop:"50px"}}>Attendance</h1>
       <Menu/>
       <SharedGrid data={data} columns={AttendanceColumns}/>
     </div>
