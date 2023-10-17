@@ -3,10 +3,10 @@ import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
 import { fetchData } from "../apiUtils";
 export const fetchUsers=createAsyncThunk(
     "fetchusers",
-    async ({ method, url }) => {
+    async ({ method, url,headers}) => {
       // const { method, url } = options;
       try {
-        const response = await fetchData(method,url );
+        const response = await fetchData(method, url,headers);
       console.log(response)
         return response;
       } catch (error) {

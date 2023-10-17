@@ -1,0 +1,157 @@
+.registration-container {
+    display: flex;
+    background: linear-gradient(to top right, #213264, #2467AA);
+    height: 100vh;
+  }
+  
+  .left-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to top to left, #032368, #2467AA);
+    color: #fff;
+  }
+  
+  .logo h1 {
+    font-size: 30px;
+    margin-bottom: 70px;
+    margin-top: 60px;
+  }
+  .logo span {
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 0.5px white;
+  }
+  
+  .logo img {
+    /* width: 100%; */
+    margin: 20px 0;
+  }
+  
+  .imgtext {
+    margin-top: 15px;
+    font-size: 25px;
+    font-weight: 400;
+    letter-spacing: 1px;
+  }
+  
+  #description {
+    text-align: center;
+    font-size: 13px;
+    color: #EFF3F7;
+    margin-top: -10px;
+  }
+  
+  .right-section {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #ffffff;
+    padding: 20px;
+  }
+  
+  .registration-form {
+    width: 400px;
+    text-align: center;
+    margin-left: -100px;
+  }
+  
+  .registration-form h2 {
+    font-size: 24px;
+    font-weight: 600;
+  }
+  
+  .registration-form p {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+  
+  .form-heading {
+    display: flex;
+    margin-top: -15px;
+  }
+  
+  .form-group {
+    position: relative;
+    margin-bottom: 20px;
+  }
+  
+  input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .form-label {
+    display: flex;
+    margin-bottom: 10px;
+  }
+  
+  .form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    width: 420px;
+  }
+  
+  .checkbox-label {
+    font-size: 16px;
+  }
+  
+  .registration-button {
+    background: #3EA9F5;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 105%;
+  }
+  
+  .login p span {
+    color: #3EA9F5;
+  }
+  
+  .registration-button:hover {
+    background: #3EA9F5;
+  }
+  
+  .xyz {
+    width: 50px;
+    height: 50px;
+    background-color: #faf6f68a;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: absolute;
+    top: 90%;
+    left: 93%;
+  }
+  
+  p:last-child {
+    margin-top: 10px;
+    font-size: 14px;
+  }
+  
+  .login {
+    color: #3EA9F5;
+  }
+  
+  a {
+    color: #2a3b70;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  

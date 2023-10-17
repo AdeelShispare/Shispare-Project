@@ -5,6 +5,8 @@ import img1 from "../Assets/chats.svg"
 import { useNavigate  } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
+import Registration from './Registration';
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState('');
@@ -14,20 +16,39 @@ const Login = () => {
   };
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
-    e.preventDefault(); // Prevent the form from submitting
-  
+  const handleLogin = async (e) => {
+    e.preventDefault();
     if (email.trim() !== '' && password.trim() !== '') {
-      // Fields are non-empty (whitespace is also considered)
-      // Perform your login logic here or redirect to the dashboard
-      // Example using React Router:
-      navigate('/dashboard');
+      try {
+        const response = await fetch('http://13.228.165.0/api/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, password }),
+        });
+  
+        if (response.status === 200) {
+          console.log('Response:', response);
+          const loginResponse = await response.json();
+          console.log('Login Response:', loginResponse);
+          if (loginResponse && loginResponse.token) {
+            const token = loginResponse.token;
+            localStorage.setItem('token', token);
+            navigate('/dashboard');
+          } else {
+            alert('Unexpected response from the server');
+          }
+        } else {
+          alert('Login failed. Please check your credentials.');
+        }
+      } catch (error) {
+        console.error('API request failed:', error);
+      }
     } else {
-      // Handle empty fields
       alert('Please fill in both email and password fields.');
     }
   };
-
   return (
     <div className="login-container">
       <div className="left-section">
@@ -93,7 +114,7 @@ const Login = () => {
             <button className="login-button" type="submit" onClick={handleLogin}>
               Login
             </button>
-            <p>Don't have an account? <span className='signup'>Sign up</span></p>
+            <p>Don't have an account? <Link to="/register"><span className='signup'>Sign up</span></Link></p>
           </form>
         </div>
        

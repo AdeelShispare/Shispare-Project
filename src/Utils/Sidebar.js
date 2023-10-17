@@ -13,8 +13,8 @@ function Sidebar() {
           </Link>
         </li>
         <li>
-          <Link className='hello' to="/recruitment">
-            <i className="fa-solid fa-users"></i> Recruitment
+          <Link className='hello' to="/department">
+            <i className="fa-solid fa-users"></i> Department
           </Link>
         </li>
         <li>
