@@ -1,5 +1,5 @@
 import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
-// import fetchData from "../apiUtils";
+
 import { fetchData } from "../apiUtils";
 export const fetchUsers=createAsyncThunk(
     "fetchusers",
@@ -15,10 +15,7 @@ export const fetchUsers=createAsyncThunk(
     }
   );
   
-//   export const fetchUsers=createAsyncThunk("fetchusers",async()=>{
-//     fetchData({ method, url, body, headers });
-   
-// })
+
 const initialState = {
 
     isLoading: false,
@@ -41,6 +38,16 @@ const userSlice=createSlice({
       state.isError = true;
     });
   },
+  // reducers: {
+  //   updateDepartments: (state, action) => {
+  //     // Update the departments data in the state
+  //     state.data = action.payload;
+  //   },
+  //   deleteDepartment: (state, action) => {
+  //     // Delete a department by its ID from the state
+  //     state.data = state.data.filter((department) => department.id !== action.payload);
+  //   },
+  // },
 });
 
 

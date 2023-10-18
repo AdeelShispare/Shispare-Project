@@ -6,14 +6,14 @@ import SharedGrid from './SharedGrid.jsx';
 import { BsPerson } from 'react-icons/bs';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUsers } from '../redux/slice/userSlice.jsx';
-import { addDepartment } from '../redux/slice/departmentslice.jsx';
+import { addDepartment, deleteDepartments } from '../redux/slice/departmentslice.jsx';
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
-import axios from 'axios';
 import "./Department.css"
 function Department() {
   const dispatch = useDispatch();
-  const departments = useSelector((state) => state.employeedata.data.departments); // Access "departments" from state
+  const departments = useSelector((state) => state.employeedata.data.departments); 
+  
   const token = localStorage.getItem('token');
   const [newDepartment, setNewDepartment] = useState('');
   const [error, setError] = useState(null);
@@ -26,37 +26,73 @@ function Department() {
           method: 'GET',
           url: 'http://13.228.165.0/api/departments',
           headers: {
-            'Authorization': `Bearer ${token}` // Include the bearer token in the headers
+            'Authorization': `Bearer ${token}` 
           }
         })
       );
     }
   }, [dispatch, token]);
 
- 
-  const handleAddDepartment = async () => {
+  const handleDeleteDepartment = async (id) => {
+  
+      const success = await dispatch(deleteDepartments({
+      method: 'DELETE',
+      url: `http://13.228.165.0/api/department/${id}/delete`,
+      headers: {
+        'Authorization': `Bearer ${token}` 
+      }
+    }
+    ));
+    if (success) {
+      dispatch(
+        fetchUsers({
+          method: 'GET',
+          url: 'http://13.228.165.0/api/departments',
+          headers: {
+            'Authorization': `Bearer ${token}` 
+          }
+        })
+      );
+      console.log(id,success)
+      
+    } else {
+    
+    }
+  };
+
+  const handleAddDepartment = async (e) => {
+    e.preventDefault()
     try {
-      // Make an API request to add a new department
+      
       const response = await dispatch(
         addDepartment({
           method: 'POST',
           url: 'http://13.228.165.0/api/departmentstore',
           headers: {
             'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json', // Set the content type
+            'Content-Type': 'application/json', 
           },
           data: {
-            department: newDepartment, // Include the department name
+            department: newDepartment, 
           }
         })
       );
       console.log(response);
 
-      // Assuming the response contains the newly added department data
+    
       if (response) {
         console.log('Department created successfully:', response);
-        // You may want to refresh the department list here
-        setNewDepartment(''); // Reset the input field
+        dispatch(
+          fetchUsers({
+            method: 'GET',
+            url: 'http://13.228.165.0/api/departments',
+            headers: {
+              'Authorization': `Bearer ${token}` 
+            }
+          })
+        );
+       
+        setNewDepartment(''); 
        
   
        
@@ -72,7 +108,7 @@ function Department() {
   
 
   if (!departments) {
-    // Handle the case where data is not available yet
+    
     return (
       <div>
         <Navbar />
@@ -110,8 +146,20 @@ function Department() {
     // { field: 'approval', header: 'APPROVALS' },
     // { field: 'addedOn', header: 'ADDED ON' },
     // { field: 'action', header: 'ACTION' },
-   
+    
   ];
+  // const handleUpdateDepartment = async (id, updatedData) => {
+  //   const success = await dispatch(updateDepartment(id, updatedData));
+  //   if (success) {
+  //     console.log(id,updatedData,success)
+  //     // Handle success, e.g., close the update dialog
+  //   } else {
+  //     // Handle failure, e.g., show an error message
+  //   }
+  // };
+  
+ 
+  
   return (
     <div>
          <Navbar/>
@@ -123,29 +171,41 @@ function Department() {
         <Button
           label="Add Department"
           icon="pi pi-plus"
+          
           onClick={() => setVisible(true)}
         />
       </div>
+      
       <Dialog
-        header="Add Department"
-        visible={visible}
-        style={{ width: '50vw', top: 0, right: 0 }}
-        onHide={() => setVisible(false)}
+  header="Add Department"
+  visible={visible}
+  style={{ width: '50vw', top: 0, right: 0 }}
+  onHide={() => setVisible(false)}
+>
+<form onSubmit={(e) => handleAddDepartment(e)}>
+    <div>
+      <p>Add a new department:</p>
+      <input
+        type="text"
+        placeholder="Department Name"
+        required
+        value={newDepartment}
+        onChange={(e) => setNewDepartment(e.target.value)}
+      />
+      <button
+        type="submit"
+        className='departbtn'
       >
-        <div>
-          <p>Add a new department:</p>
-          <input
-            type="text"
-            placeholder="Department Name"
-            value={newDepartment}
-            onChange={(e) => setNewDepartment(e.target.value)}
-          />
-          <button onClick={handleAddDepartment} className='departbtn'>Add</button>
-     
-        </div>
-      </Dialog>
+        Add
+      </button>
     </div>
-      <SharedGrid data={departments} columns={RecruitmentColumns}/>
+  </form>
+</Dialog>
+
+
+    </div>
+      <SharedGrid data={departments} columns={RecruitmentColumns}   
+        handleDelete={handleDeleteDepartment}  />
       {/* <div className="add-department">
         <input
           type="text"

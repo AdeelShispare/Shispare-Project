@@ -3,8 +3,9 @@ import React,{useState} from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import "./SharedGrid.css"
+import { Dropdown } from 'primereact/dropdown'; 
 import { Paginator } from 'primereact/paginator';
-const SharedGrid = ({ data,columns }) => {
+const SharedGrid = ({ data,columns,handleUpdate, handleDelete }) => {
  
     const [selectedProducts, setSelectedProducts] = useState(null);
     const [rowClick, setRowClick] = useState(true);
@@ -17,6 +18,18 @@ const SharedGrid = ({ data,columns }) => {
   const startRecord = first + 1;
   const endRecord = Math.min(first + rows, data.length);
   const totalRecords = data.length;
+  const handleDropdownSelect = (value, rowData) => {
+    if (value === 'update') {
+      handleUpdate(rowData.id, rowData);
+    } else if (value === 'delete') {
+      handleDelete(rowData.id);
+    }
+  };
+  const dropdownItems = [
+    { label: 'Update', value: 'update' },
+    { label: 'Delete', value: 'delete' },
+  ];
+  
   return (
     <div className="shared-grid">
     <div className="card" style={{ marginLeft: "210px", marginRight: "15px" }}>
@@ -49,6 +62,19 @@ const SharedGrid = ({ data,columns }) => {
           body={(rowData) => rowData.actions}
           headerStyle={{ width: "6rem" }}
         /> */}
+
+<Column
+            header="ACTION"
+            body={(rowData) => (
+              <Dropdown 
+              value={null}
+              placeholder="..."
+                options={dropdownItems}
+                onChange={(e) => handleDropdownSelect(e.value, rowData)}
+              />
+            )}
+            headerStyle={{ width: "3rem" }}
+          />
       </DataTable>
    
     </div>
