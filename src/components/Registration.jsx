@@ -25,8 +25,10 @@ const Registration = () => {
         });
   
         if (response.status === 200) {
+          console.log(response)
           // Registration successful
           console.log(response.status)
+          
           navigate('/');
         
         } else if (response.status === 409) {

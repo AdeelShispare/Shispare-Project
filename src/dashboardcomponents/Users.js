@@ -1,13 +1,13 @@
 import React,{useEffect} from 'react'
 import SharedGrid from './SharedGrid.jsx';
 import Navbar from '../Utils/Navbar.js';
-import Sidebar from '../Utils/Sidebar';
+import Sidebar from '../Utils/Sidebar.js';
 import Menu from '../Utils/Menu.jsx';
 import { BsPerson } from 'react-icons/bs';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUsers } from '../redux/slice/userSlice.jsx';
-import { fetchData } from "../redux/apiUtils"
-function Employee() {
+import { fetchData } from "../redux/apiUtils.js"
+function Users() {
   // const dispatch=useDispatch();
   // const state = useSelector((state) => state.employeedata.data);
   // console.log(state)
@@ -61,4 +61,5 @@ function Employee() {
   )
 }
 
-export default Employee
+export default Users
+  

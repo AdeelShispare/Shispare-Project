@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { addDepart, deleteDepart } from '../apiUtils';
-
+// import {updateDepartments} from "./userSlice"
 export const addDepartment = createAsyncThunk(
   'addDepartment',
   async ({method, url, headers, data }) => {

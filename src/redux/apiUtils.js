@@ -59,3 +59,22 @@ export const deleteDepart = async (method, url, headers) => {
   }
 };
 
+export const logindata=async(method,url,headers,data)=>{
+  
+  try {
+    const response = await axios({
+      method: method,
+      url: url,
+      headers: headers,
+      data:data,
+    });
+    
+    // if (response.status !== 200) {
+    //   throw new Error(`HTTP error! Status: ${response.status}`);
+    // }
+    return response;
+  }
+  catch (error) {
+    throw new Error(`Fetch error: ${error.message}`);
+  }
+}

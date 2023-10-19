@@ -1,11 +1,11 @@
 import React from 'react'
 import { BsPerson } from 'react-icons/bs';
 import Navbar from '../Utils/Navbar.js';
-import Sidebar from '../Utils/Sidebar';
+import Sidebar from '../Utils/Sidebar.js';
 import SharedGrid from './SharedGrid.jsx';
 import Menu from '../Utils/Menu.jsx';
 
-function Attendence() {
+function Designation() {
   const data = [];
 
   for (let i = 3; i <= 17; i++) {
@@ -45,4 +45,4 @@ function Attendence() {
   )
 }
 
-export default Attendence
+export default Designation

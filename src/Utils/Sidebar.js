@@ -18,14 +18,14 @@ function Sidebar() {
           </Link>
         </li>
         <li>
-          <Link className='hello' to="/employee">
-            <i className="fas fa-user-tie"></i> Employee 
+          <Link className='hello' to="/users">
+            <i className="fas fa-user-tie"></i> Users 
             <item className="dropdowns"><i class="fas fa-chevron-circle-down"></i> </item> 
           </Link>
         </li>
         <li>
-          <Link className='hello' to="/attendance">
-            <i className="far fa-calendar-check"></i> Attendance
+          <Link className='hello' to="/designation">
+            <i className="far fa-calendar-check"></i> Designation
           </Link>
         </li>
         <li>

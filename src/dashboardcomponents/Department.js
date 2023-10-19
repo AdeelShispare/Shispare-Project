@@ -9,11 +9,13 @@ import { fetchUsers } from '../redux/slice/userSlice.jsx';
 import { addDepartment, deleteDepartments } from '../redux/slice/departmentslice.jsx';
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
+import { updateDepartment } from '../redux/slice/userSlice.jsx';
+
 import "./Department.css"
 function Department() {
   const dispatch = useDispatch();
   const departments = useSelector((state) => state.employeedata.data.departments); 
-  
+  const [editingDepartment, setEditingDepartment] = useState(null);
   const token = localStorage.getItem('token');
   const [newDepartment, setNewDepartment] = useState('');
   const [error, setError] = useState(null);
@@ -44,6 +46,7 @@ function Department() {
     }
     ));
     if (success) {
+      console.log(id,success)
       dispatch(
         fetchUsers({
           method: 'GET',
@@ -53,13 +56,44 @@ function Department() {
           }
         })
       );
-      console.log(id,success)
-      
     } else {
     
     }
   };
+  const handleUpdateDepartment = async (id, updatedData) => {
+    const success = await dispatch(updateDepartment(id, updatedData));
+    if (success) {
+      // Close the editing form and clear the editing department
+      setEditingDepartment(null);
+    } else {
+      // Handle failure, e.g., show an error message
+    }
+  };
 
+  const handleEditDepartment = (id) => {
+    // Set the department ID you want to edit
+    setEditingDepartment(id);
+
+    // Retrieve the department data based on the ID
+    const departmentToEdit = departments.find((department) => department.id === id);
+
+    // Set the current department name in the input field
+    setNewDepartment(departmentToEdit.department);
+
+    // Display the editing form
+    setVisible(true);
+  };
+
+  const handleCancelEdit = () => {
+    // Cancel the editing and clear the input field
+    setEditingDepartment(null);
+    setNewDepartment('');
+
+    // Hide the editing form
+    setVisible(false);
+  };
+
+  
   const handleAddDepartment = async (e) => {
     e.preventDefault()
     try {
@@ -105,10 +139,13 @@ function Department() {
     }
   };
 
-  
+  // const handleUpdateDepartment = (id, updatedData) => {
+  //   // Call the updateDepartment action with the id and updated data
+  //   dispatch(updateDepartment(id, updatedData));
+  // };
 
   if (!departments) {
-    
+    // Handle the case where data is not available yet
     return (
       <div>
         <Navbar />
@@ -119,28 +156,11 @@ function Department() {
       </div>
     );
   }
-  // const data = Array.isArray(state) ? state.slice() : [];
-  // const data = [];
-
-  // for (let i = 3; i <= 17; i++) {
-  //   const entry = {
-  //     id: i,
-  //     employeeNumber: `EMP00${i}`,
-  //     employeeName: `Employee ${i}`,
-  //     attendanceDate: '2023-01-07',
-  //     changeType: i % 2 === 0 ? 'In' : 'Out',
-  //     status: i % 3 === 0 ? 'Approved' : 'Pending',
-  //     approval:   <BsPerson />,
-  //     addedOn: `2023-01-07 ${(i % 12) + 1}:${(i % 60).toString().padStart(2, '0')} ${i < 12 ? 'AM' : 'PM'}`,
-  //     action: '...'
-  //   };
-    
-  //   data.push(entry);
-  // }
+  
   const RecruitmentColumns = [
     { field: 'id', header: 'ID#' },
     { field: 'department', header: 'Department' },
-    // { field: 'attendanceDate', header: 'ATTENDENCE DATE' },
+    //  { field: 'created_at', header: 'created_at ' },
     // { field: 'changeType', header: 'CHANGE TYPE' },
     // { field: 'status', header: 'STATUS' },
     // { field: 'approval', header: 'APPROVALS' },
@@ -148,75 +168,58 @@ function Department() {
     // { field: 'action', header: 'ACTION' },
     
   ];
-  // const handleUpdateDepartment = async (id, updatedData) => {
-  //   const success = await dispatch(updateDepartment(id, updatedData));
-  //   if (success) {
-  //     console.log(id,updatedData,success)
-  //     // Handle success, e.g., close the update dialog
-  //   } else {
-  //     // Handle failure, e.g., show an error message
-  //   }
-  // };
-  
- 
-  
+
   return (
     <div>
-         <Navbar/>
-      <Sidebar/>
-      <h1 style={{marginRight:"920px",paddingTop:"50px"}}>Department</h1>
-      <Menu/>
+      <Navbar />
+      <Sidebar />
+      <h1 style={{ marginRight: "920px", paddingTop: "50px" }}>Department</h1>
+      <Menu />
       <div className="department-container">
-      <div className="departbutton">
-        <Button
-          label="Add Department"
-          icon="pi pi-plus"
-          
-          onClick={() => setVisible(true)}
-        />
+        <div className="departbutton">
+          <Button
+            label="Add Department"
+            icon="pi pi-plus"
+            onClick={() => setVisible(true)}
+          />
+        </div>
+
+        <Dialog
+          header={editingDepartment ? "Edit Department" : "Add Department"}
+          visible={visible}
+          style={{ width: '50vw', top: 0, right: 0 }}
+          onHide={() => setVisible(false)}
+        >
+          <form onSubmit={editingDepartment ? (e) => handleUpdateDepartment(editingDepartment, { department: newDepartment }) : (e) => handleAddDepartment(e)}>
+            <div>
+              <p>{editingDepartment ? "Edit the department:" : "Add a new department:"}</p>
+              <input
+                type="text"
+                placeholder="Department Name"
+                required
+                value={newDepartment}
+                onChange={(e) => setNewDepartment(e.target.value)}
+              />
+              <button type="submit" className='departbtn'>
+                {editingDepartment ? "Update" : "Add"}
+              </button>
+              {editingDepartment && (
+                <button type="button" className='departbtn' onClick={handleCancelEdit}>
+                  Cancel
+                </button>
+              )}
+            </div>
+          </form>
+        </Dialog>
       </div>
-      
-      <Dialog
-  header="Add Department"
-  visible={visible}
-  style={{ width: '50vw', top: 0, right: 0 }}
-  onHide={() => setVisible(false)}
->
-<form onSubmit={(e) => handleAddDepartment(e)}>
-    <div>
-      <p>Add a new department:</p>
-      <input
-        type="text"
-        placeholder="Department Name"
-        required
-        value={newDepartment}
-        onChange={(e) => setNewDepartment(e.target.value)}
+      <SharedGrid
+        data={departments}
+        columns={RecruitmentColumns}
+        handleUpdate={handleEditDepartment}
+        handleDelete={handleDeleteDepartment}
       />
-      <button
-        type="submit"
-        className='departbtn'
-      >
-        Add
-      </button>
     </div>
-  </form>
-</Dialog>
-
-
-    </div>
-      <SharedGrid data={departments} columns={RecruitmentColumns}   
-        handleDelete={handleDeleteDepartment}  />
-      {/* <div className="add-department">
-        <input
-          type="text"
-          placeholder="New Department Name"
-          value={newDepartment}
-          onChange={(e) => setNewDepartment(e.target.value)}
-        />
-        <button onClick={handleAddDepartment}>Add Department</button>
-            </div> */}
-    </div>
-  )
+  );
 }
 
 export default Department;
