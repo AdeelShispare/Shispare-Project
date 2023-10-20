@@ -29,8 +29,8 @@ function Sidebar() {
           </Link>
         </li>
         <li>
-          <Link className='hello' to="/leave">
-            <i className="fa-solid fa-right-to-bracket"></i> Leave
+          <Link className='hello' to="/projects">
+            <i className="fa-solid fa-right-to-bracket"></i> Projects
             <item className="dropdown1"><i class="fas fa-chevron-circle-down"></i> </item> 
           </Link>
         </li>
