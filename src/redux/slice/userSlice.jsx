@@ -2,6 +2,7 @@ import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
 
 import { fetchData } from "../apiUtils";
 import { logindata } from "../apiUtils";
+import axios from "axios";
 
 
 export const fetchUsers=createAsyncThunk(
@@ -35,31 +36,28 @@ export const fetchUsers=createAsyncThunk(
       throw new Error(`Fetch API data error: ${error.message}`);
     }
   })
-  export const updateDepartment = (id, updatedData) => async (dispatch, getState) => {
-    const token = localStorage.getItem('token');
-    // const token = getState().employeedata.token; // Assuming you store the token in employeedata
-    try {
-      const response = await fetch(`http://13.228.165.0/api/department/${id}/update`, {
-        method: 'PUT', // Use the appropriate HTTP method for updating
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(updatedData),
-      });
+  // export const updateDepartment = (id, updatedData) => async (dispatch, getState) => {
+  //   const token = localStorage.getItem('token');
+  //   try {
+  //     const response = await axios.put(`http://13.228.165.0/api/department/${id}/update`, updatedData, {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //         'Content-Type': 'application/json',
+  //       },
+  //     });
   
-      if (response.status === 200) {
-        // Update the local state with the updated data
-        dispatch(updateDepartments(response.data));
-        return true;
-      } else {
-        return false;
-      }
-    } catch (error) {
-      console.error('API request failed:', error.message);
-      return false;
-    }
-  };
+  //     if (response.status === 200) {
+  //       dispatch(updateDepartments(response.data));
+  //       return true;
+  //     } else {
+  //       return false;
+  //     }
+  //   } catch (error) {
+  //     console.error('API request failed:', error.message);
+  //     return false;
+  //   }
+  // };
+  
 const initialState = {
 
     isLoading: false,
@@ -82,16 +80,16 @@ const userSlice=createSlice({
       state.isError = true;
     });
   },
-  reducers: {
-    updateDepartments: (state, action) => {
-      // Update the departments data in the state
-      state.data.departments = action.payload;
-    },
-    // deleteDepartment: (state, action) => {
-    //   // Delete a department by its ID from the state
-    //   state.data = state.data.filter((department) => department.id !== action.payload);
-    // },
-  },
+  // reducers: {
+  //   updateDepartments: (state, action) => {
+  //     // Update the departments data in the state
+  //     state.data.departments = action.payload;
+  //   },
+  //   // deleteDepartment: (state, action) => {
+  //   //   // Delete a department by its ID from the state
+  //   //   state.data = state.data.filter((department) => department.id !== action.payload);
+  //   // },
+  // },
 });
 
 export const { updateDepartments, deleteDepartment } = userSlice.actions;

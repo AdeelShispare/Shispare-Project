@@ -6,7 +6,7 @@ import SharedGrid from './SharedGrid.jsx';
 import { BsPerson } from 'react-icons/bs';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUsers } from '../redux/slice/userSlice.jsx';
-import { addDepartment, deleteDepartments } from '../redux/slice/departmentslice.jsx';
+import { addDepartment, deleteDepartments, updateDepartments } from '../redux/slice/departmentslice.jsx';
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
 import { updateDepartment } from '../redux/slice/userSlice.jsx';
@@ -15,11 +15,15 @@ import "./Department.css"
 function Department() {
   const dispatch = useDispatch();
   const departments = useSelector((state) => state.employeedata.data.departments); 
-  const [editingDepartment, setEditingDepartment] = useState(null);
+  // const [editingDepartment, setEditingDepartment] = useState(null);
   const token = localStorage.getItem('token');
   const [newDepartment, setNewDepartment] = useState('');
+ 
   const [error, setError] = useState(null);
   const [visible, setVisible] = useState(false);
+  const [updateVisible, setUpdateVisible] = useState(false);
+  const [updateDepartment, setUpdateDepartment] = useState('');
+  const [departmentIdToUpdate, setDepartmentIdToUpdate] = useState(null);
   console.log(departments);
    useEffect(() => {
     if (token) {
@@ -60,41 +64,42 @@ function Department() {
     
     }
   };
-  const handleUpdateDepartment = async (id, updatedData) => {
-    const success = await dispatch(updateDepartment(id, updatedData));
-    if (success) {
-      // Close the editing form and clear the editing department
-      setEditingDepartment(null);
-    } else {
-      // Handle failure, e.g., show an error message
+
+  const handleupdateDepartment = async () => {
+    if (departmentIdToUpdate && updateDepartment) {
+      const success = await dispatch(
+        updateDepartments({
+          method: 'PUT',
+          url: `http://13.228.165.0/api/department/${departmentIdToUpdate}/update`,
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+          data: {
+            department: updateDepartment, // Use the user-input department name
+          },
+        })
+      );
+
+      if (success) {
+        dispatch(
+          fetchUsers({
+            method: 'GET',
+            url: 'http://13.228.165.0/api/departments',
+            headers: {
+              'Authorization': `Bearer ${token}` 
+            }
+          })
+        );
+        setUpdateVisible(false);
+        // Reset departmentIdToUpdate and updateDepartment
+        setDepartmentIdToUpdate(null);
+        setUpdateDepartment('');
+      }
     }
   };
-
-  const handleEditDepartment = (id) => {
-    // Set the department ID you want to edit
-    setEditingDepartment(id);
-
-    // Retrieve the department data based on the ID
-    const departmentToEdit = departments.find((department) => department.id === id);
-
-    // Set the current department name in the input field
-    setNewDepartment(departmentToEdit.department);
-
-    // Display the editing form
-    setVisible(true);
-  };
-
-  const handleCancelEdit = () => {
-    // Cancel the editing and clear the input field
-    setEditingDepartment(null);
-    setNewDepartment('');
-
-    // Hide the editing form
-    setVisible(false);
-  };
-
   
-  const handleAddDepartment = async (e) => {
+    const handleAddDepartment = async (e) => {
     e.preventDefault()
     try {
       
@@ -185,14 +190,14 @@ function Department() {
         </div>
 
         <Dialog
-          header={editingDepartment ? "Edit Department" : "Add Department"}
+          header="Add Department"
           visible={visible}
           style={{ width: '50vw', top: 0, right: 0 }}
           onHide={() => setVisible(false)}
         >
-          <form onSubmit={editingDepartment ? (e) => handleUpdateDepartment(editingDepartment, { department: newDepartment }) : (e) => handleAddDepartment(e)}>
+          <form onSubmit={(e) => handleAddDepartment(e)}>
             <div>
-              <p>{editingDepartment ? "Edit the department:" : "Add a new department:"}</p>
+              <p>Add a new department:</p>
               <input
                 type="text"
                 placeholder="Department Name"
@@ -201,25 +206,50 @@ function Department() {
                 onChange={(e) => setNewDepartment(e.target.value)}
               />
               <button type="submit" className='departbtn'>
-                {editingDepartment ? "Update" : "Add"}
+                Add
               </button>
-              {editingDepartment && (
-                <button type="button" className='departbtn' onClick={handleCancelEdit}>
-                  Cancel
-                </button>
-              )}
             </div>
           </form>
         </Dialog>
+        <Dialog
+        header="Update Department"
+        visible={updateVisible}
+        style={{ width: '50vw', top: 0, right: 0 }}
+        onHide={() => setUpdateVisible(false)}
+      >
+        <form onSubmit={(e) => {
+          e.preventDefault();
+          handleupdateDepartment();
+        }}>
+          <div>
+            <p>Update department:</p>
+            <input
+              type="text"
+              placeholder="Department Name"
+              required
+              value={updateDepartment}
+              onChange={(e) => setUpdateDepartment(e.target.value)}
+            />
+            <button type="submit" className='departbtn'>
+              Update
+            </button>
+          </div>
+        </form>
+      </Dialog>
+        
       </div>
       <SharedGrid
         data={departments}
         columns={RecruitmentColumns}
-        handleUpdate={handleEditDepartment}
+        handleUpdate={(id,previousDepartment) => {
+          setDepartmentIdToUpdate(id,previousDepartment);
+          setUpdateDepartment(previousDepartment.department); // Clear the input field
+          setUpdateVisible(true);
+        }}
         handleDelete={handleDeleteDepartment}
       />
     </div>
   );
 }
 
-export default Department;
+export default Department

@@ -5,12 +5,15 @@ import { Column } from 'primereact/column';
 import "./SharedGrid.css"
 import { Dropdown } from 'primereact/dropdown'; 
 import { Paginator } from 'primereact/paginator';
+import { Dialog } from 'primereact/dialog';
 const SharedGrid = ({ data,columns,handleUpdate, handleDelete }) => {
  
     const [selectedProducts, setSelectedProducts] = useState(null);
     const [rowClick, setRowClick] = useState(true);
     const [first, setFirst] = useState(0);
     const [rows, setRows] = useState(5);
+    const [visibleUpdateForm, setVisibleUpdateForm] = useState(false); // State for showing the editing form
+  const [updateFormValue, setUpdateFormValue] = useState('');
     const onPageChange = (event) => {
       setFirst(event.first);
       setRows(event.rows);

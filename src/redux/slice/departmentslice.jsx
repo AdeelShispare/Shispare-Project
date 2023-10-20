@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { addDepart, deleteDepart } from '../apiUtils';
+import { addDepart, deleteDepart,updatedepart } from '../apiUtils';
 // import {updateDepartments} from "./userSlice"
 export const addDepartment = createAsyncThunk(
   'addDepartment',
@@ -34,6 +34,24 @@ export const deleteDepartments=createAsyncThunk(
   }
 )
 
+export const updateDepartments=createAsyncThunk("updatedepart",
+async({method,url,headers,data})=>{
+  try{
+
+    const response=await updatedepart(method, url, headers,data);
+    console.log(response)
+    console.log(method)
+    console.log(url)
+    if (response.status === 200) {
+      return true; 
+    } else {
+      return false;
+    }
+  }
+  catch(error){
+    throw new Error(`Delete Department API error: ${error.message}`)
+  }
+})
 // export const updateDepartment = (id, updatedData) => async (dispatch, getState) => {
 //   const token = localStorage.getItem('token');
 //   // const token = getState().employeedata.token; // Assuming you store the token in employeedata
