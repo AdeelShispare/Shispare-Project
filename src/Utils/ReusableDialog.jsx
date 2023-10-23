@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
 import './ReusableDialog.css'; // Import the CSS file to style the dialog
 
 const ReusableDialog = ({ visible, onHide, title, fields, onSubmit }) => {
   const [data, setData] = useState({});
-
+  useEffect(() => {
+    if (visible) {
+      // Clear the input field when the dialog is opened
+      setData({});
+    }
+  }, [visible]);
   const handleFieldChange = (fieldName, value) => {
     setData((prevData) => ({
       ...prevData,

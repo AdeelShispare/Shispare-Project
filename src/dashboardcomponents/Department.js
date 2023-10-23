@@ -10,7 +10,7 @@ import { addDepartment, deleteDepartments, updateDepartments } from '../redux/sl
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
 import { updateDepartment } from '../redux/slice/userSlice.jsx';
-
+import ReusableDialog from '../Utils/ReusableDialog.jsx';
 import "./Department.css"
 function Department() {
   const dispatch = useDispatch();
@@ -24,6 +24,29 @@ function Department() {
   const [updateVisible, setUpdateVisible] = useState(false);
   const [updateDepartment, setUpdateDepartment] = useState('');
   const [departmentIdToUpdate, setDepartmentIdToUpdate] = useState(null);
+
+
+  const [reusablevisible, setreusableVisible] = useState(false);
+
+  const fields =[
+    {
+        name: 'newDepartment', // Use a proper name, not a state variable
+        label: 'Department Name',
+        type: 'text',
+        placeholder: 'Department Name',
+        required: true,
+    },
+];
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    // Handle the form submission here, data contains the form field values
+    handleAddDepartment();
+    console.log(e);
+    setVisible(false);
+  };
+
+ 
   console.log(departments);
    useEffect(() => {
     if (token) {
@@ -99,8 +122,8 @@ function Department() {
     }
   };
   
-    const handleAddDepartment = async (e) => {
-    e.preventDefault()
+    const handleAddDepartment = async (data) => {
+    // data.preventDefault()
     try {
       
       const response = await dispatch(
@@ -112,7 +135,7 @@ function Department() {
             'Content-Type': 'application/json', 
           },
           data: {
-            department: newDepartment, 
+            department: data.newDepartment, 
           }
         })
       );
@@ -132,11 +155,8 @@ function Department() {
         );
        
         setNewDepartment(''); 
-       
-  
-       
-
-        setVisible(false);
+      
+        setreusableVisible(false)
       }
     } catch (error) {
       console.error('API request failed:', error.message);
@@ -185,11 +205,11 @@ function Department() {
           <Button
             label="Add Department"
             icon="pi pi-plus"
-            onClick={() => setVisible(true)}
+            onClick={() => setreusableVisible(true)}
           />
         </div>
 
-        <Dialog
+        {/* <Dialog
           header="Add Department"
           visible={visible}
           style={{ width: '50vw', top: 350, right: 0 }}
@@ -235,9 +255,19 @@ function Department() {
             </button>
           </div>
         </form>
-      </Dialog>
+      </Dialog> */}
         
       </div>
+      <ReusableDialog
+        title="Add Attendence"
+        visible={reusablevisible}
+        onHide={() => setreusableVisible(false)}
+        fields={fields}
+        onSubmit={handleAddDepartment}
+        
+        // onChange={(e) => setNewDepartment(e.target.value)}
+      />
+    
       <SharedGrid
         data={departments}
         columns={RecruitmentColumns}
