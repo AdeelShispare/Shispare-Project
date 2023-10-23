@@ -3,14 +3,13 @@ import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
 import './ReusableDialog.css'; // Import the CSS file to style the dialog
 
-const ReusableDialog = ({ visible, onHide, title, fields, onSubmit }) => {
+const ReusableDialog = ({ visible, onHide, title, fields, onSubmit,buttonLabel,initialValues  }) => {
   const [data, setData] = useState({});
   useEffect(() => {
     if (visible) {
-      // Clear the input field when the dialog is opened
-      setData({});
+      setData(initialValues || {}); // Use the provided initialValues or an empty object
     }
-  }, [visible]);
+  }, [visible, initialValues]);
   const handleFieldChange = (fieldName, value) => {
     setData((prevData) => ({
       ...prevData,
@@ -40,7 +39,7 @@ const ReusableDialog = ({ visible, onHide, title, fields, onSubmit }) => {
             </div>
           ))}
         </div>
-        <Button label="Submit" type="submit" />
+        <Button label={buttonLabel} type="submit" />
       </form>
     </Dialog>
   );

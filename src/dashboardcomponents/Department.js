@@ -22,13 +22,13 @@ function Department() {
   const [error, setError] = useState(null);
   const [visible, setVisible] = useState(false);
   const [updateVisible, setUpdateVisible] = useState(false);
-  const [updateDepartment, setUpdateDepartment] = useState('');
+  const [updateDepartmentName, setUpdateDepartmentName] = useState('');
   const [departmentIdToUpdate, setDepartmentIdToUpdate] = useState(null);
 
 
   const [reusablevisible, setreusableVisible] = useState(false);
 
-  const fields =[
+  const addfields =[
     {
         name: 'newDepartment', // Use a proper name, not a state variable
         label: 'Department Name',
@@ -36,6 +36,15 @@ function Department() {
         placeholder: 'Department Name',
         required: true,
     },
+];
+const updatefields =[
+  {
+      name: 'updateDepartmentName', // Use a proper name, not a state variable
+      label: 'Department Name',
+      type: 'text',
+      placeholder: 'Department Name',
+      required: true,
+  },
 ];
 
   const handleSubmit = (e) => {
@@ -88,8 +97,8 @@ function Department() {
     }
   };
 
-  const handleupdateDepartment = async () => {
-    if (departmentIdToUpdate && updateDepartment) {
+  const handleupdateDepartment = async (data) => {
+    if (departmentIdToUpdate && updateDepartmentName) {
       const success = await dispatch(
         updateDepartments({
           method: 'PUT',
@@ -99,7 +108,7 @@ function Department() {
             'Content-Type': 'application/json',
           },
           data: {
-            department: updateDepartment, // Use the user-input department name
+            department: data.updateDepartmentName, // Use the user-input department name
           },
         })
       );
@@ -117,7 +126,7 @@ function Department() {
         setUpdateVisible(false);
         // Reset departmentIdToUpdate and updateDepartment
         setDepartmentIdToUpdate(null);
-        setUpdateDepartment('');
+        setUpdateDepartmentName('');
       }
     }
   };
@@ -262,20 +271,34 @@ function Department() {
         title="Add Attendence"
         visible={reusablevisible}
         onHide={() => setreusableVisible(false)}
-        fields={fields}
+        fields={addfields}
         onSubmit={handleAddDepartment}
-        
+        buttonLabel="Add" 
         // onChange={(e) => setNewDepartment(e.target.value)}
       />
-    
+ <ReusableDialog
+ 
+        title="Update Department"
+        visible={updateVisible}
+        onHide={() => setUpdateVisible(false)}
+        fields={updatefields}
+        onSubmit={handleupdateDepartment}
+        buttonLabel="Update"
+        initialValues={{ updateDepartmentName }} // Pass the initial value to the dialog
+        onChange={(e) => setUpdateDepartmentName(e.target.value)} // Update the state when the user changes the input
+      />
+
       <SharedGrid
-        data={departments}
-        columns={RecruitmentColumns}
-        handleUpdate={(id,previousDepartment) => {
-          setDepartmentIdToUpdate(id,previousDepartment);
-          setUpdateDepartment(previousDepartment.department); // Clear the input field
-          setUpdateVisible(true);
-        }}
+      data={departments}
+      columns={RecruitmentColumns}
+      handleUpdate={(id, previousDepartment) => {
+        console.log(id, previousDepartment);
+        setDepartmentIdToUpdate(id, previousDepartment);
+        console.log(previousDepartment.department);
+        setUpdateDepartmentName(previousDepartment.department); // Set the value to be updated
+        setUpdateVisible(true);
+      }}
+      
         handleDelete={handleDeleteDepartment}
       />
     </div>
