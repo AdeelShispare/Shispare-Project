@@ -38,7 +38,7 @@ const Login = () => {
         console.log('Login Response:', loginResponse.payload.token);
     
         if (loginResponse.payload.token) {
-          const token = loginResponse.token;
+          const token = loginResponse.payload.token;
           localStorage.setItem('token', token);
           navigate('/dashboard');
         } else {
