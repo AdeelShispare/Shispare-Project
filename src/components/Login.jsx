@@ -7,6 +7,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import Registration from './Registration';
+import { logindata } from '../redux/apiUtils';
+import { loginuser } from '../redux/slice/userSlice';
+import { useDispatch } from 'react-redux';
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState('');
@@ -15,40 +18,41 @@ const Login = () => {
     setShowPassword(!showPassword);
   };
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const handleLogin = async (e) => {
     e.preventDefault();
     if (email.trim() !== '' && password.trim() !== '') {
       try {
-        const response = await fetch('http://13.228.165.0/api/login', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ email, password }),
-        });
-  
-        if (response.status === 200) {
-          console.log('Response:', response);
-          const loginResponse = await response.json();
-          console.log('Login Response:', loginResponse);
-          if (loginResponse && loginResponse.token) {
-            const token = loginResponse.token;
-            localStorage.setItem('token', token);
-            navigate('/dashboard');
-          } else {
-            alert('Unexpected response from the server');
-          }
+        const loginResponse = await dispatch(
+          loginuser({
+            method: 'POST',
+            url: 'http://13.228.165.0/api/login',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, password }),
+          })
+        );
+      
+        console.log('Login Response:', loginResponse);
+        console.log('Login Response:', loginResponse.payload.token);
+    
+        if (loginResponse.payload.token) {
+          const token = loginResponse.token;
+          localStorage.setItem('token', token);
+          navigate('/dashboard');
         } else {
-          alert('Login failed. Please check your credentials.');
+          alert('No token found in the response');
         }
       } catch (error) {
         console.error('API request failed:', error);
+        alert('Login failed. Please check your credentials.');
       }
     } else {
       alert('Please fill in both email and password fields.');
     }
   };
+
   return (
     <div className="login-container">
       <div className="left-section">

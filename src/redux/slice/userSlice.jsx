@@ -28,9 +28,9 @@ export const fetchUsers=createAsyncThunk(
       // console.log(method)
       // console.log(url)
       // console.log(headers)
-      console.log(body)
+      console.log(url)
        
-      return response
+      return response.data
     }
     catch (error) {
       throw new Error(`Fetch API data error: ${error.message}`);

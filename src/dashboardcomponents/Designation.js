@@ -14,13 +14,13 @@ function Designation() {
   const designations = useSelector((state) => state.employeedata.data.designations); 
   // const [editingDepartment, setEditingDepartment] = useState(null);
   const token = localStorage.getItem('token');
-  const [newDepartment, setNewDepartment] = useState('');
+  const [newdesignation, setNewdesignation] = useState('');
  
   const [error, setError] = useState(null);
   const [visible, setVisible] = useState(false);
   const [updateVisible, setUpdateVisible] = useState(false);
-  const [updateDepartment, setUpdateDepartment] = useState('');
-  const [departmentIdToUpdate, setDepartmentIdToUpdate] = useState(null);
+  const [updatedesignation, setUpdatedesignation] = useState('');
+  const [designationIdToUpdate, setdesignationIdToUpdate] = useState(null);
   console.log(designations);
    useEffect(() => {
     if (token) {
@@ -36,7 +36,7 @@ function Designation() {
     }
   }, [dispatch, token]);
 
-  const handleDeleteDepartment = async (id) => {
+  const handleDeletedesignation = async (id) => {
   
       const success = await dispatch(deleteDepartments({
       method: 'DELETE',
@@ -62,18 +62,18 @@ function Designation() {
     }
   };
 
-  const handleupdateDepartment = async () => {
-    if (departmentIdToUpdate && updateDepartment) {
+  const handleupdatedesignation = async () => {
+    if (designationIdToUpdate && updatedesignation) {
       const success = await dispatch(
         updateDepartments({
           method: 'PUT',
-          url: `http://13.228.165.0/api/designation/${departmentIdToUpdate}/update`,
+          url: `http://13.228.165.0/api/designation/${designationIdToUpdate}/update`,
           headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json',
           },
           data: {
-            designation: updateDepartment, // Use the user-input department name
+            designation: updatedesignation, // Use the user-input department name
           },
         })
       );
@@ -90,13 +90,13 @@ function Designation() {
         );
         setUpdateVisible(false);
         // Reset departmentIdToUpdate and updateDepartment
-        setDepartmentIdToUpdate(null);
-        setUpdateDepartment('');
+        setdesignationIdToUpdate(null);
+        setUpdatedesignation('');
       }
     }
   };
   
-    const handleAddDepartment = async (e) => {
+    const handleAdddesignation = async (e) => {
     e.preventDefault()
     try {
       
@@ -109,7 +109,7 @@ function Designation() {
             'Content-Type': 'application/json', 
           },
           data: {
-            designation: newDepartment, 
+            designation: newdesignation, 
           }
         })
       );
@@ -117,7 +117,7 @@ function Designation() {
 
     
       if (response) {
-        console.log('Department created successfully:', response);
+        console.log('designation created successfully:', response);
         dispatch(
           fetchUsers({
             method: 'GET',
@@ -128,7 +128,7 @@ function Designation() {
           })
         );
        
-        setNewDepartment(''); 
+        setNewdesignation(''); 
        
   
        
@@ -137,7 +137,7 @@ function Designation() {
       }
     } catch (error) {
       console.error('API request failed:', error.message);
-      setError('Department creation failed. Please try again.');
+      setError('designation creation failed. Please try again.');
     }
   };
 
@@ -159,7 +159,7 @@ function Designation() {
     );
   }
   
-  const RecruitmentColumns = [
+  const designationColumns = [
     { field: 'id', header: 'ID#' },
     { field: 'designation', header: 'Designation' },
     //  { field: 'created_at', header: 'created_at ' },
@@ -187,20 +187,20 @@ function Designation() {
         </div>
 
         <Dialog
-          header="Add Department"
+          header="Add Designation"
           visible={visible}
           style={{ width: '50vw', top: 0, right: 0 }}
           onHide={() => setVisible(false)}
         >
-          <form onSubmit={(e) => handleAddDepartment(e)}>
+          <form onSubmit={(e) => handleAdddesignation(e)}>
             <div>
               <p>Add a new Designation:</p>
               <input
                 type="text"
                 placeholder="Designation Name"
                 required
-                value={newDepartment}
-                onChange={(e) => setNewDepartment(e.target.value)}
+                value={newdesignation}
+                onChange={(e) => setNewdesignation(e.target.value)}
               />
               <button type="submit" className='departbtn'>
                 Add
@@ -216,16 +216,16 @@ function Designation() {
       >
         <form onSubmit={(e) => {
           e.preventDefault();
-          handleupdateDepartment();
+          handleupdatedesignation();
         }}>
           <div>
-            <p>Update department:</p>
+            <p>Update Designation:</p>
             <input
               type="text"
               placeholder="Designation Name"
               required
-              value={updateDepartment}
-              onChange={(e) => setUpdateDepartment(e.target.value)}
+              value={updatedesignation}
+              onChange={(e) => setUpdatedesignation(e.target.value)}
             />
             <button type="submit" className='departbtn'>
               Update
@@ -237,13 +237,13 @@ function Designation() {
       </div>
       <SharedGrid
         data={designations}
-        columns={RecruitmentColumns}
-        handleUpdate={(id,previousDepartment) => {
-          setDepartmentIdToUpdate(id,previousDepartment);
-          setUpdateDepartment(previousDepartment.designation); // Clear the input field
+        columns={designationColumns}
+        handleUpdate={(id,previousdesignation) => {
+          setdesignationIdToUpdate(id,previousdesignation);
+          setUpdatedesignation(previousdesignation.designation); // Clear the input field
           setUpdateVisible(true);
         }}
-        handleDelete={handleDeleteDepartment}
+        handleDelete={handleDeletedesignation}
       />
     </div>
   );
