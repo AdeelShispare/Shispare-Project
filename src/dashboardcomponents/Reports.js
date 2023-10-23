@@ -37,7 +37,7 @@ function Reports() {
     {
       name: 'attendanceDate',
       label: 'Attendance Date',
-      type: 'date',
+      type: 'text',
       placeholder: 'Select Date',
       required: true,
     },
@@ -51,7 +51,7 @@ function Reports() {
     {
       name: 'attendanceDate',
       label: 'Attendance Date',
-      type: 'date',
+      type: 'textarea rows="4" cols="50"',
       placeholder: 'Select Date',
       required: true,
     },
@@ -103,7 +103,7 @@ function Reports() {
       <div>
       <button onClick={() => setVisible(true)}>Open Dialog</button>
       <ReusableDialog
-        title="My Dialog Title"
+        title="Add Attendence"
         visible={visible}
         onHide={() => setVisible(false)}
         fields={fields}

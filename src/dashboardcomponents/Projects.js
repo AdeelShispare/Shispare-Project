@@ -188,7 +188,7 @@ function Projects() {
         <Dialog
           header="Add Project"
           visible={visible}
-          style={{ width: '50vw', top: 0, right: 0 }}
+          style={{ width: '50vw',  top: 350, right: 0 }}
           onHide={() => setVisible(false)}
         >
           <form onSubmit={(e) => handleAddProject(e)}>
@@ -210,7 +210,7 @@ function Projects() {
         <Dialog
         header="Update Project"
         visible={updateVisible}
-        style={{ width: '50vw', top: 0, right: 0 }}
+        style={{ width: '50vw',  top: 350, right: 0 }}
         onHide={() => setUpdateVisible(false)}
       >
         <form onSubmit={(e) => {

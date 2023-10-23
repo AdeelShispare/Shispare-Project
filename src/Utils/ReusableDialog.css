@@ -1,0 +1,10 @@
+.fields-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px; /* Adjust the gap as needed */
+  }
+  
+  .field {
+    margin-bottom: 10px;
+  }
+  
