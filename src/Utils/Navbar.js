@@ -4,14 +4,15 @@ import "./Utils.css"
 import { FaSearch } from 'react-icons/fa';
 import { FaUserCircle } from 'react-icons/fa';
 import { FaBell } from 'react-icons/fa';
-
+import logo from "../Assets/shisLogo.png"
 function Navbar() {
   return (
     <div className='navbar'>
         <div className='search'>
-     <h1 style={{color:"darkblue", marginLeft:"20px"}}>L0G0
+          <img src={logo} className='shisLogo'/>
+     {/* <h1 style={{color:"darkblue", marginLeft:"20px"}}>L0G0
        <span className='ipsum'>IPSUM</span>
-       </h1> 
+       </h1>  */}
        <div className='nav-right'>
        <div className='icon'>
        <FaBell size={15}/>

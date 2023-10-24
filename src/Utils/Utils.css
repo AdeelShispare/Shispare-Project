@@ -1,178 +1,4 @@
 .Sidebar {
-    width: 200px;
-    height: 100%;
-    background-color: rgb(0, 0, 77);
-    color: #fff;
-    position: fixed;
-    left: 0;
-    border-right: 1px solid #ccc;
-    margin-top: 20px;
-  }
-  
-  ul {
-    list-style: none;
-    padding: 8px 16px 16px 16px;
-  }
-  
-  li {
-    padding: 10px;
-    cursor: pointer;
-  }
-  .content{
-    text-align: center;
-  }
-  .hello{
-    color: #fff;
-    text-decoration: none;
-    font-size: small;
-  
-  }
-  .hello:hover {
-    color: lightslategrey; 
-  }
-  
-  
-  
-  
-  .ipsum{
-      color: transparent;
-      -webkit-text-fill-color: transparent;
-      -webkit-text-stroke: 2px black;
-  }
-  .icon {
-    width: 30px;
-    height: 30px;
-    background-color: rgba(211, 211, 211, 0.081);
-    color: skyblue;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    /* margin-left: -00px;
-    margin-right: 30px; */
-}
-  .Icon{
-    width: 30px; 
-    height: 30px; 
-    background-color: rgba(211, 211, 211, 0.081); 
-    color: skyblue; 
-    border-radius: 50%; 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer; 
-    margin-right: 30px;
-    margin-left: 30px;
-  
-    
-  }
-  
-  
-  .search{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 55px;
-  }
-  .nameicon{
-    color: black;
-    margin-right: 10px;
-   
-  }
-  /* .navbar{
-    border-bottom: 1px solid #ccc ;
-    height: 55px;
-  
-  }
-  .person{
-    margin-right: 60px;
-  
-  } */
-  .nav-right{
-display: flex;
-justify-content: space-between;
-align-items: center;
-margin-right: 20px;
-  }
-  .help{
-    padding: 8px 16px 16px 20px;
-    margin-top: 270px;
-    border-top: 1px solid;
-    font-size: small;
-  }
-  .dropdown {
-    position: relative;
-  }
-  
-  .dropdown i {
-    position: absolute;
-    margin-left: 80px;
-    margin-top: 5px;
-  
-  }
-  .dropdown1 {
-    position: relative;
-  }
-  
-  .dropdown1 i {
-    position: absolute;
-    margin-left: 43px;
-    margin-top: 5px;
-  }
-  
-  .dropdown2 {
-    position: relative;
-  }
-  
-  .dropdown2 i {
-    position: absolute;
-    margin-left: 40px;
-    margin-top: 5px;
-  }
-  .dropdown3 {
-    position: relative;
-  }
-  
-  .dropdown3 i {
-    position: absolute;
-    margin-left: 40px;
-    margin-top: 5px;
-  }
-  .dropdown4 {
-     position: absolute; 
-     margin-top: 3px;
-     /* display: flex; */
-     margin-left: -10px;
-     
-  }
-  
-  .dropdown4 i {
-    position: absolute;
-     margin-top: 10px; 
-   margin-left: 10px; 
-    color:gray;
-    /* margin-right: 20px; */
-    /* position: relative;
-    top: 5%; */
-  }
-  .dropdowns {
-    position: absolute;
-    left: 85%;
-    top: 10;
-    
-}
-.navbar{
-  width: 100%;
-  border-bottom: 1px solid #ccc ;
-  height: 55px;
-  position:fixed;
-  background-color: white;
-  z-index:1;
-  margin-top: -22px;
-  
-}
-/* .Sidebar {
   width: 200px;
   height: 100%;
   background-color: rgb(0, 0, 77);
@@ -180,4 +6,256 @@ margin-right: 20px;
   position: fixed;
   left: 0;
   border-right: 1px solid #ccc;
+  margin-top: 20px;
+}
+
+ul {
+  list-style: none;
+  padding: 8px 16px 16px 16px;
+}
+
+li {
+  padding: 10px;
+  cursor: pointer;
+}
+.content{
+  text-align: center;
+}
+.hello{
+  color: #fff;
+  text-decoration: none;
+  font-size: small;
+
+}
+.hello:hover {
+  color: lightslategrey; 
+}
+
+
+
+
+.ipsum{
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 2px black;
+}
+.icon {
+  width: 30px;
+  height: 30px;
+  background-color: rgba(211, 211, 211, 0.081);
+  color: skyblue;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  /* margin-left: -00px;
+  margin-right: 30px; */
+}
+.Icon{
+  width: 30px; 
+  height: 30px; 
+  background-color: rgba(211, 211, 211, 0.081); 
+  color: skyblue; 
+  border-radius: 50%; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer; 
+  margin-right: 30px;
+  margin-left: 30px;
+
+  
+}
+
+
+.search{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 55px;
+}
+.nameicon{
+  color: black;
+  margin-right: 10px;
+ 
+}
+/* .navbar{
+  border-bottom: 1px solid #ccc ;
+  height: 55px;
+
+}
+.person{
+  margin-right: 60px;
+
 } */
+.nav-right{
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-right: 20px;
+}
+.help{
+  padding: 8px 16px 16px 20px;
+  margin-top: 270px;
+  border-top: 1px solid;
+  font-size: small;
+}
+.dropdown {
+  position: relative;
+}
+
+.dropdown i {
+  position: absolute;
+  margin-left: 80px;
+  margin-top: 5px;
+
+}
+.dropdown1 {
+  position: relative;
+}
+
+.dropdown1 i {
+  position: absolute;
+  margin-left: 43px;
+  margin-top: 5px;
+}
+
+.dropdown2 {
+  position: relative;
+}
+
+.dropdown2 i {
+  position: absolute;
+  margin-left: 40px;
+  margin-top: 5px;
+}
+.dropdown3 {
+  position: relative;
+}
+
+.dropdown3 i {
+  position: absolute;
+  margin-left: 40px;
+  margin-top: 5px;
+}
+.dropdown4 {
+   position: absolute; 
+   margin-top: 3px;
+   /* display: flex; */
+   margin-left: -10px;
+   
+}
+
+.dropdown4 i {
+  position: absolute;
+   margin-top: 10px; 
+ margin-left: 10px; 
+  color:gray;
+  /* margin-right: 20px; */
+  /* position: relative;
+  top: 5%; */
+}
+.dropdowns {
+  position: absolute;
+  left: 85%;
+  top: 10;
+  
+}
+.navbar{
+width: 100%;
+border-bottom: 1px solid #ccc ;
+height: 55px;
+position:fixed;
+background-color: white;
+z-index:1;
+margin-top: -22px;
+
+}
+/* .Sidebar {
+width: 200px;
+height: 100%;
+background-color: rgb(0, 0, 77);
+color: #fff;
+position: fixed;
+left: 0;
+border-right: 1px solid #ccc;
+} */
+
+.Sidebar {
+width: 200px;
+height: 100%;
+background-color: rgb(0, 0, 77);
+color: #fff;
+position: fixed;
+left: 0;
+border-right: 1px solid #ccc;
+margin-top: 20px;
+padding-top: 20px;
+}
+
+/* ul {
+list-style: none;
+padding: 0;
+} */
+
+.li {
+padding: 0;
+}
+
+.hello {
+color: #fff;
+text-decoration: none;
+font-size: small;
+padding: 0;
+list-style: none;
+}
+
+.sidebar-item {
+display: flex;
+align-items: center;
+padding: 10px;
+cursor: pointer;
+color: #fff;
+}
+
+.sidebar-item i {
+margin-right: 10px;
+font-size: 1.2em; /* Adjust the icon size as needed */
+}
+
+.sidebar-item span {
+font-size: 1em; /* Adjust the text size as needed */
+}
+
+.help {
+padding: 0;
+margin-top: 20px;
+font-size: small;
+color: #fff;
+margin-top: 350px;
+}
+
+.help i {
+margin-right: 10px;
+font-size: 1.2em; /* Adjust the icon size as needed */
+}
+
+.navbar {
+width: 100%;
+border-bottom: 1px solid #ccc;
+height: 55px;
+position: fixed;
+background-color: white;
+z-index: 1;
+margin-top: -22px;
+}
+.adeel{
+margin-left: 80px;
+}
+.adeeluser{
+margin-left: 88px;
+}
+.shisLogo{
+  margin-left: 40px;
+}

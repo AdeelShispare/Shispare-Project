@@ -74,6 +74,7 @@ const SharedGrid = ({ data,columns,handleUpdate, handleDelete }) => {
               placeholder="..."
                 options={dropdownItems}
                 onChange={(e) => handleDropdownSelect(e.value, rowData)}
+                className="custom-dropdown"
               />
             )}
             headerStyle={{ width: "3rem" }}

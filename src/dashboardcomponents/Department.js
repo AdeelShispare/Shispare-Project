@@ -268,7 +268,7 @@ const updatefields =[
         
       </div>
       <ReusableDialog
-        title="Add Attendence"
+        title="Add Department"
         visible={reusablevisible}
         onHide={() => setreusableVisible(false)}
         fields={addfields}

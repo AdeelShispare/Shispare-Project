@@ -54,3 +54,15 @@
     background-color: #d32f2f; /* Darker red on hover */
   }
   
+.custom-dropdown .p-dropdown-trigger .p-dropdown-trigger-icon {
+  display: none; 
+}
+
+.custom-dropdown {
+  cursor: pointer;
+  font-size: 1.2rem;
+  user-select: none;
+  border: none;
+  background-color: transparent;
+}
+
