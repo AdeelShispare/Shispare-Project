@@ -1,13 +1,23 @@
-import React from 'react';
+import React,{useState} from 'react';
 import './Utils.css';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 function Sidebar() {
+  const location = useLocation();
+  const [activeLink, setActiveLink] = useState(location.pathname);
+
+  const handleLinkClick = (link) => {
+    setActiveLink(link);
+  };
   return (
     <div className="Sidebar">
       <ul className="hello">
         <li className='li'>
-          <Link to="/dashboard">
+        <Link
+            to="/dashboard"
+            onClick={() => handleLinkClick("/dashboard")}
+            className={activeLink === "/dashboard" ? "active" : ""}
+          >
             <div className="sidebar-item">
               <i className="fas fa-th"></i>
               <span>Dashboard</span>
@@ -15,7 +25,11 @@ function Sidebar() {
           </Link>
         </li>
         <li className='li'>
-          <Link to="/department">
+        <Link
+            to="/department"
+            onClick={() => handleLinkClick("/department")}
+            className={activeLink === "/department" ? "active" : ""}
+          >
             <div className="sidebar-item">
               <i className="fa-solid fa-users"></i>
               <span>Department</span>
@@ -23,7 +37,11 @@ function Sidebar() {
           </Link>
         </li>
         <li className='li'>
-          <Link to="/users">
+          <Link 
+          to="/users"
+          onClick={() => handleLinkClick("/users")}
+            className={activeLink === "/users" ? "active" : ""}
+          >
             <div className="sidebar-item">
               <i className="fas fa-user-tie"></i>
               <span>Users</span>
@@ -32,7 +50,10 @@ function Sidebar() {
           </Link>
         </li>
         <li className='li'>
-          <Link to="/designation">
+          <Link to="/designation"
+                    onClick={() => handleLinkClick("/designation")}
+                    className={activeLink === "/designation" ? "active" : ""}
+          >
             <div className="sidebar-item">
               <i className="far fa-calendar-check"></i>
               <span>Designation</span>
@@ -40,7 +61,10 @@ function Sidebar() {
           </Link>
         </li>
         <li className='li'>
-          <Link to="/projects">
+          <Link to="/projects"
+            onClick={() => handleLinkClick("/projects")}
+            className={activeLink === "/projects" ? "active" : ""}
+          >
             <div className="sidebar-item">
               <i className="fa-solid fa-right-to-bracket"></i>
               <span>Project</span>
@@ -49,7 +73,10 @@ function Sidebar() {
           </Link>
         </li>
         <li className='li'>
-          <Link to="/payroll">
+          <Link to="/payroll"
+          onClick={() => handleLinkClick("/payroll")}
+          className={activeLink === "/payroll" ? "active" : ""}
+          >
             <div className="sidebar-item">
               <i className="fa-solid fa-hand-holding-dollar"></i>
               <span>Payroll</span>
@@ -58,7 +85,10 @@ function Sidebar() {
           </Link>
         </li>
         <li className='li'>
-          <Link to="/reports">
+          <Link to="/reports"
+          onClick={() => handleLinkClick("/reports")}
+          className={activeLink === "/reports" ? "active" : ""}
+          >
             <div className="sidebar-item">
               <i className="fas fa-file"></i>
               <span>Reports</span>

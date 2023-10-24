@@ -21,38 +21,9 @@
     border-bottom-right-radius: 50%;
     margin-right: 380px;
 }
-.update-button {
-    background-color: #4CAF50; /* Green */
-    border: none;
-    color: white;
-    padding: 5px 10px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 14px;
-    border-radius: 4px;
-    cursor: pointer;
-  }
+
   
-  .update-button:hover {
-    background-color: #45a049; /* Darker green on hover */
-  }
-  .delete-button {
-    background-color: #f44336; /* Red */
-    border: none;
-    color: white;
-    padding: 5px 10px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 14px;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .delete-button:hover {
-    background-color: #d32f2f; /* Darker red on hover */
-  }
+ 
   
 .custom-dropdown .p-dropdown-trigger .p-dropdown-trigger-icon {
   display: none; 

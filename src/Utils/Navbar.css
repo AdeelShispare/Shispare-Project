@@ -1,0 +1,129 @@
+.content {
+    text-align: center;
+  }
+  
+  .icon {
+    width: 30px;
+    height: 30px;
+    background-color: rgba(211, 211, 211, 0.081);
+    color: skyblue;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  
+  }
+  .Icon {
+    width: 30px;
+    height: 30px;
+    background-color: rgba(211, 211, 211, 0.081);
+    color: skyblue;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-right: 30px;
+    margin-left: 30px;
+  }
+  
+  .search {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 55px;
+  }
+  .nameicon {
+    color: black;
+    margin-right: 10px;
+  }
+  /* .navbar{
+    border-bottom: 1px solid #ccc ;
+    height: 55px;
+  
+  }
+  .person{
+    margin-right: 60px;
+  
+  } */
+  .nav-right {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 20px;
+  }
+  .help {
+    padding: 8px 16px 16px 20px;
+    margin-top: 270px;
+    border-top: 1px solid;
+    font-size: small;
+  }
+  .dropdown {
+    position: relative;
+  }
+  
+  .dropdown i {
+    position: absolute;
+    margin-left: 80px;
+    margin-top: 5px;
+  }
+  .dropdown1 {
+    position: relative;
+  }
+  
+  .dropdown1 i {
+    position: absolute;
+    margin-left: 43px;
+    margin-top: 5px;
+  }
+  
+  .dropdown2 {
+    position: relative;
+  }
+  
+  .dropdown2 i {
+    position: absolute;
+    margin-left: 40px;
+    margin-top: 5px;
+  }
+  .dropdown3 {
+    position: relative;
+  }
+  
+  .dropdown3 i {
+    position: absolute;
+    margin-left: 40px;
+    margin-top: 5px;
+  }
+  .dropdown4 {
+    position: absolute;
+    margin-top: 3px;
+    /* display: flex; */
+    margin-left: -10px;
+  }
+  
+  .dropdown4 i {
+    position: absolute;
+    margin-top: 10px;
+    margin-left: 10px;
+    color: gray;
+    /* margin-right: 20px; */
+    /* position: relative;
+    top: 5%; */
+  }
+  .dropdowns {
+    position: absolute;
+    left: 85%;
+    top: 10;
+  }
+  .navbar {
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+    height: 55px;
+    position: fixed;
+    background-color: white;
+    z-index: 1;
+    margin-top: -22px;
+  }
+  

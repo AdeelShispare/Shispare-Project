@@ -9,8 +9,9 @@
     transition: box-shadow 0.2s;
 }
 .h1{
-    margin-right: 920px;
-    padding-top: 50px;
+    margin-right: 930px;
+    padding-top: 40px;
+    padding-bottom: 10px;
 }
 /* Dashboard.css */
 .dropdown {

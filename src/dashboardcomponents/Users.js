@@ -4,6 +4,7 @@ import Navbar from '../Utils/Navbar.js';
 import Sidebar from '../Utils/Sidebar.js';
 import Menu from '../Utils/Menu.jsx';
 import { BsPerson } from 'react-icons/bs';
+import { Button } from 'primereact/button';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUsers } from '../redux/slice/userSlice.jsx';
 import { fetchData } from "../redux/apiUtils.js"
@@ -37,16 +38,14 @@ function Users() {
     
     data.push(entry);
   }
-  const EmployeeeColumns = [
-    { field: 'id', header: 'ID' },
-    { field: 'designation', header: 'FIRST NAME' },
-    // { field: 'lastName', header: 'LAST NAME' },
-    // { field: 'address', header: 'ADDRESS' },
-    // { field: 'age', header: 'AGE' },
-    // { field: 'contactNumber', header: 'CONTACT NUMBER' },
-    // { field: 'dob', header: 'DATE OF BIRTH' },
-    // { field: 'email', header: 'EMAIL' },
-   
+  const UsersColumns = [
+    { field: "employeeNumber", header: "EMPLOYEE#" },
+    { field: "employeeName", header: "EMPLOYEE" },
+    { field: "attendanceDate", header: "ATTENDENCE DATE" },
+    { field: "changeType", header: "CHANGE TYPE" },
+    { field: "status", header: "STATUS" },
+    { field: "approval", header: "APPROVALS" },
+    { field: "addedOn", header: "ADDED ON" },
     
  
   ];
@@ -54,9 +53,18 @@ function Users() {
     <div>
       <Navbar/>
       <Sidebar/>
-      <h1 style={{marginRight:"920px",paddingTop:"50px"}}>Employee</h1>
+      <h1 style={{marginRight:"1020px",paddingTop: "40px",paddingBottom:"10px" }}>Users</h1>
       <Menu/>
-      <SharedGrid data={data} columns={EmployeeeColumns} />
+      <div className="department-container">
+      <div className="departbutton">
+          <Button
+            label="Add User"
+            icon="pi pi-plus"
+            // onClick={() => setVisible(true)}
+          />
+        </div>
+        </div>
+      <SharedGrid data={data} columns={UsersColumns} />
     </div>
   )
 }

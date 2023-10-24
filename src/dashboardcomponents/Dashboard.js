@@ -6,6 +6,7 @@ import { BsPerson } from "react-icons/bs";
 import "./Dashboard.css";
 import Menu from "../Utils/Menu";
 
+
 function Dashboard() {
   const [selectedAction, setSelectedAction] = useState(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -70,11 +71,7 @@ function Dashboard() {
     { field: "status", header: "STATUS" },
     { field: "approval", header: "APPROVALS" },
     { field: "addedOn", header: "ADDED ON" },
-    {
-      field: "actions",
-      header: "ACTIONS",
-      render: (rowData) => rowData.actions,
-    },
+   
   ];
 
   return (
@@ -84,6 +81,7 @@ function Dashboard() {
 
       <h1 className="h1">Dashboard</h1>
       <Menu />
+  
       <SharedGrid
         data={data}
         columns={DashboardColumns}

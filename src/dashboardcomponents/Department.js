@@ -184,7 +184,7 @@ const updatefields =[
       <div>
         <Navbar />
         <Sidebar />
-        <h1 style={{ marginRight: "920px", paddingTop: "50px" }}>Department</h1>
+        <h1 style={{ marginRight: "920px",paddingTop: "40px",paddingBottom:"10px" }}>Department</h1>
         <Menu />
         <p>Loading...</p>
       </div>
@@ -207,7 +207,7 @@ const updatefields =[
     <div>
       <Navbar />
       <Sidebar />
-      <h1 style={{ marginRight: "920px", paddingTop: "50px" }}>Department</h1>
+      <h1 style={{ marginRight: "920px", paddingTop: "40px",paddingBottom:"10px" }}>Department</h1>
       <Menu />
       <div className="department-container">
         <div className="departbutton">

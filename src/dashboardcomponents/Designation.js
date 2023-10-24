@@ -9,7 +9,27 @@ import { fetchUsers } from '../redux/slice/userSlice.jsx';
 import { addDepartment, deleteDepartments, updateDepartments } from '../redux/slice/departmentslice.jsx';
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
+import ReusableDialog from '../Utils/ReusableDialog.jsx';
 function Designation() {
+  const addfields =[
+    {
+        name: 'newdesignation', // Use a proper name, not a state variable
+        label: 'Designation Name',
+        type: 'text',
+        placeholder: 'Designation Name',
+        required: true,
+    },
+];
+const updatefields =[
+  {
+      name: 'updatedesignation', // Use a proper name, not a state variable
+      label: 'Designation Name',
+      type: 'text',
+      placeholder: 'Designation Name',
+      required: true,
+  },
+];
+
   const dispatch = useDispatch();
   const designations = useSelector((state) => state.employeedata.data.designations); 
   // const [editingDepartment, setEditingDepartment] = useState(null);
@@ -62,7 +82,7 @@ function Designation() {
     }
   };
 
-  const handleupdatedesignation = async () => {
+  const handleupdatedesignation = async (data) => {
     if (designationIdToUpdate && updatedesignation) {
       const success = await dispatch(
         updateDepartments({
@@ -73,7 +93,7 @@ function Designation() {
             'Content-Type': 'application/json',
           },
           data: {
-            designation: updatedesignation, // Use the user-input department name
+            designation: data.updatedesignation, // Use the user-input department name
           },
         })
       );
@@ -97,7 +117,7 @@ function Designation() {
   };
   
     const handleAdddesignation = async (e) => {
-    e.preventDefault()
+    // e.preventDefault()
     try {
       
       const response = await dispatch(
@@ -109,7 +129,7 @@ function Designation() {
             'Content-Type': 'application/json', 
           },
           data: {
-            designation: newdesignation, 
+            designation: e.newdesignation, 
           }
         })
       );
@@ -152,7 +172,7 @@ function Designation() {
       <div>
         <Navbar />
         <Sidebar />
-        <h1 style={{ marginRight: "920px", paddingTop: "50px" }}>Designations</h1>
+        <h1 style={{ marginRight: "900px", paddingTop: "40px",paddingBottom:"10px" }}>Designations</h1>
         <Menu />
         <p>Loading...</p>
       </div>
@@ -175,7 +195,7 @@ function Designation() {
     <div>
       <Navbar />
       <Sidebar />
-      <h1 style={{ marginRight: "880px", paddingTop: "50px" }}>Designations</h1>
+      <h1 style={{ marginRight: "900px", paddingTop: "40px",paddingBottom:"10px" }}>Designations</h1>
       <Menu />
       <div className="department-container">
         <div className="departbutton">
@@ -185,7 +205,7 @@ function Designation() {
             onClick={() => setVisible(true)}
           />
         </div>
-
+{/* 
         <Dialog
           header="Add Designation"
           visible={visible}
@@ -232,9 +252,29 @@ function Designation() {
             </button>
           </div>
         </form>
-      </Dialog>
+      </Dialog> */}
         
       </div>
+      <ReusableDialog
+        title="Add Designation"
+        visible={visible}
+        onHide={() => setVisible(false)}
+        fields={addfields}
+        onSubmit={handleAdddesignation}
+        buttonLabel="Add" 
+        // onChange={(e) => setNewDepartment(e.target.value)}
+      />
+ <ReusableDialog
+ 
+        title="Update Designation"
+        visible={updateVisible}
+        onHide={() => setUpdateVisible(false)}
+        fields={updatefields}
+        onSubmit={handleupdatedesignation}
+        buttonLabel="Update"
+        initialValues={{ updatedesignation }} // Pass the initial value to the dialog
+        onChange={(e) => setUpdatedesignation(e.target.value)} // Update the state when the user changes the input
+      />
       <SharedGrid
         data={designations}
         columns={designationColumns}

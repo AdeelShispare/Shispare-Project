@@ -8,7 +8,26 @@ import { fetchUsers } from '../redux/slice/userSlice.jsx';
 import { addDepartment, deleteDepartments, updateDepartments } from '../redux/slice/departmentslice.jsx';
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
+import ReusableDialog from '../Utils/ReusableDialog.jsx';
 function Projects() {
+  const addfields =[
+    {
+        name: 'newProject', // Use a proper name, not a state variable
+        label: 'Project Name',
+        type: 'text',
+        placeholder: 'Project Name',
+        required: true,
+    },
+];
+const updatefields =[
+  {
+      name: 'updateProject', // Use a proper name, not a state variable
+      label: 'Project Name',
+      type: 'text',
+      placeholder: 'Project Name',
+      required: true,
+  },
+];
   const dispatch = useDispatch();
   const projects = useSelector((state) => state.employeedata.data.projects); 
  
@@ -61,7 +80,7 @@ function Projects() {
     }
   };
 
-  const handleupdateProject = async () => {
+  const handleupdateProject = async (e) => {
     if (ProjectIdToUpdate && updateProject) {
       const success = await dispatch(
         updateDepartments({
@@ -72,7 +91,7 @@ function Projects() {
             'Content-Type': 'application/json',
           },
           data: {
-            project: updateProject, // Use the user-input department name
+            project: e.updateProject, // Use the user-input department name
           },
         })
       );
@@ -96,7 +115,7 @@ function Projects() {
   };
   
     const handleAddProject = async (e) => {
-    e.preventDefault()
+    // e.preventDefault()
     try {
       
       const response = await dispatch(
@@ -108,7 +127,7 @@ function Projects() {
             'Content-Type': 'application/json', 
           },
           data: {
-            project: newProject, 
+            project: e.newProject, 
           }
         })
       );
@@ -151,7 +170,7 @@ function Projects() {
       <div>
         <Navbar />
         <Sidebar />
-        <h1 style={{ marginRight: "880px", paddingTop: "50px" }}>Projects</h1>
+        <h1 style={{marginRight:"980px",paddingTop: "40px",paddingBottom:"10px" }}>Projects</h1>
         <Menu />
         <p>Loading...</p>
       </div>
@@ -174,7 +193,7 @@ function Projects() {
     <div>
       <Navbar />
       <Sidebar />
-      <h1 style={{ marginRight: "920px", paddingTop: "50px" }}>Projects</h1>
+      <h1 style={{marginRight:"980px",paddingTop: "40px",paddingBottom:"10px" }}>Projects</h1>
       <Menu />
       <div className="department-container">
         <div className="departbutton">
@@ -184,7 +203,7 @@ function Projects() {
             onClick={() => setVisible(true)}
           />
         </div>
-
+{/* 
         <Dialog
           header="Add Project"
           visible={visible}
@@ -231,9 +250,30 @@ function Projects() {
             </button>
           </div>
         </form>
-      </Dialog>
+      </Dialog> */}
         
       </div>
+      <ReusableDialog
+        title="Add Project"
+        visible={visible}
+        onHide={() => setVisible(false)}
+        fields={addfields}
+        onSubmit={handleAddProject}
+        buttonLabel="Add" 
+        // onChange={(e) => setNewDepartment(e.target.value)}
+      />
+ <ReusableDialog
+ 
+        title="Update Project"
+        visible={updateVisible}
+        onHide={() => setUpdateVisible(false)}
+        fields={updatefields}
+        onSubmit={handleupdateProject}
+        buttonLabel="Update"
+        initialValues={{ updateProject }} // Pass the initial value to the dialog
+        onChange={(e) => setUpdateProject(e.target.value)} // Update the state when the user changes the input
+      />
+
       <SharedGrid
         data={projects}
         columns={ProjectColumns}

@@ -23,7 +23,7 @@ const ReusableDialog = ({ visible, onHide, title, fields, onSubmit,buttonLabel,i
   };
 
   return (
-    <Dialog header={title} visible={visible} onHide={onHide} style={{ width: '50vw' }}>
+    <Dialog header={title} visible={visible} onHide={onHide} style={{ width: '30vw' }}>
       <form onSubmit={handleSubmit}>
         <div className="fields-container">
           {fields.map((field, index) => (

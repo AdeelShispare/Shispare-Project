@@ -4,10 +4,11 @@ import Sidebar from '../Utils/Sidebar';
 import Menu from '../Utils/Menu.jsx';
 import { BsPerson } from 'react-icons/bs';
 import SharedGrid from './SharedGrid.jsx';
+import { Button } from 'primereact/button';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUsers } from '../redux/slice/userSlice.jsx';
 import ReusableDialog from '../Utils/ReusableDialog.jsx';
-import "./Report.css"
+
 function Reports() {
   // const dispatch=useDispatch();
   // const state = useSelector((state) => state.todo);
@@ -17,53 +18,7 @@ function Reports() {
 
   // const data = state.data; // Initialize as an empty array
   // console.log(data)
-  const [visible, setVisible] = useState(false);
-
-  const fields = [
-    {
-      name: 'employeeName',
-      label: 'Employee Name',
-      type: 'text',
-      placeholder: 'Enter Employee Name',
-      required: true,
-    },
-    {
-      name: 'attendanceDate',
-      label: 'Attendance Date',
-      type: 'date',
-      placeholder: 'Select Date',
-      required: true,
-    },
-    {
-      name: 'attendanceDate',
-      label: 'Attendance Date',
-      type: 'text',
-      placeholder: 'Select Date',
-      required: true,
-    },
-    {
-      name: 'attendanceDate',
-      label: 'Attendance Date',
-      type: 'date',
-      placeholder: 'Select Date',
-      required: true,
-    },
-    {
-      name: 'attendanceDate',
-      label: 'Attendance Date',
-      type: 'textarea rows="4" cols="50"',
-      placeholder: 'Select Date',
-      required: true,
-    },
-    
-    // Add other fields as needed
-  ];
-
-  const handleSubmit = (data) => {
-    // Handle the form submission here, data contains the form field values
-    console.log(data);
-    setVisible(false);
-  };
+ 
   const data = [];
 
   for (let i = 3; i <= 487; i++) {
@@ -95,20 +50,22 @@ function Reports() {
   return (
     <div>
         <Navbar/>
-        <button onClick={() => setVisible(true)}>Open Dialog</button>
+        
       <Sidebar/>
-      <h1 style={{marginRight:"980px",paddingTop:"50px"}}>Reports</h1>
+      <h1 style={{marginRight:"990px",paddingTop: "40px",paddingBottom:"10px" }}>Reports</h1>
       <Menu/>
+      <div className="department-container">
+      <div className="departbutton">
+          <Button
+            label="Add Report"
+            icon="pi pi-plus"
+            // onClick={() => setVisible(true)}
+          />
+        </div>
+        </div>
       <SharedGrid data={data} columns={ReportsColumns}/>
       <div>
-      <button onClick={() => setVisible(true)}>Open Dialog</button>
-      <ReusableDialog
-        title="Add Attendence"
-        visible={visible}
-        onHide={() => setVisible(false)}
-        fields={fields}
-        onSubmit={handleSubmit}
-      />
+     
     </div>
       
     </div>

@@ -1,5 +1,5 @@
 import React from 'react'
-import "./Utils.css"
+import "./Navbar.css"
 
 import { FaSearch } from 'react-icons/fa';
 import { FaUserCircle } from 'react-icons/fa';
@@ -9,7 +9,7 @@ function Navbar() {
   return (
     <div className='navbar'>
         <div className='search'>
-          <img src={logo} className='shisLogo'/>
+          <img src={logo} alt='logo' className='shisLogo'/>
      {/* <h1 style={{color:"darkblue", marginLeft:"20px"}}>L0G0
        <span className='ipsum'>IPSUM</span>
        </h1>  */}

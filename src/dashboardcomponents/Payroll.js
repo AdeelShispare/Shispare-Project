@@ -4,6 +4,7 @@ import Sidebar from '../Utils/Sidebar';
 import SharedGrid from './SharedGrid.jsx';
 import Menu from '../Utils/Menu.jsx';
         import { BsPerson } from 'react-icons/bs';
+        import { Button } from 'primereact/button';
 function Payroll() {
   const data = [];
 
@@ -37,8 +38,17 @@ function Payroll() {
     <div>
          <Navbar/>
       <Sidebar/>
-      <h1 style={{marginRight:"980px",paddingTop:"50px"}}>Payroll</h1>
+      <h1 style={{marginRight:"1000px",paddingTop: "40px",paddingBottom:"10px" }}>Payroll</h1>
      <Menu/>
+     <div className="department-container">
+      <div className="departbutton">
+          <Button
+            label="Add Payroll"
+            icon="pi pi-plus"
+            // onClick={() => setVisible(true)}
+          />
+        </div>
+        </div>
      <SharedGrid data={data} columns={PayrollColumns}/>
 </div>
     
