@@ -19,6 +19,7 @@ function Designation() {
         placeholder: 'Designation Name',
         required: true,
     },
+   
 ];
 const updatefields =[
   {
@@ -256,6 +257,7 @@ const updatefields =[
         
       </div>
       <ReusableDialog
+      width="30vw"
         title="Add Designation"
         visible={visible}
         onHide={() => setVisible(false)}
@@ -265,7 +267,7 @@ const updatefields =[
         // onChange={(e) => setNewDepartment(e.target.value)}
       />
  <ReusableDialog
- 
+width="30vw"
         title="Update Designation"
         visible={updateVisible}
         onHide={() => setUpdateVisible(false)}

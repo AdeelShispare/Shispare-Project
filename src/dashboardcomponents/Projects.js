@@ -260,10 +260,11 @@ const updatefields =[
         fields={addfields}
         onSubmit={handleAddProject}
         buttonLabel="Add" 
+        width="30vw"
         // onChange={(e) => setNewDepartment(e.target.value)}
       />
  <ReusableDialog
- 
+  width="30vw"
         title="Update Project"
         visible={updateVisible}
         onHide={() => setUpdateVisible(false)}

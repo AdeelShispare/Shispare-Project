@@ -12,6 +12,8 @@ import { Dialog } from 'primereact/dialog';
 import { updateDepartment } from '../redux/slice/userSlice.jsx';
 import ReusableDialog from '../Utils/ReusableDialog.jsx';
 import "./Department.css"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function Department() {
   const dispatch = useDispatch();
   const departments = useSelector((state) => state.employeedata.data.departments); 
@@ -72,28 +74,38 @@ const updatefields =[
   }, [dispatch, token]);
 
   const handleDeleteDepartment = async (id) => {
-  
-      const success = await dispatch(deleteDepartments({
-      method: 'DELETE',
-      url: `http://13.228.165.0/api/department/${id}/delete`,
-      headers: {
-        'Authorization': `Bearer ${token}` 
-      }
-    }
-    ));
+    const success = await dispatch(
+      deleteDepartments({
+        method: 'DELETE',
+        url: `http://13.228.165.0/api/department/${id}/delete`,
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+    );
+
     if (success) {
-      console.log(id,success)
+      // Show a success toast
+      toast.success('Department deleted successfully', {
+        position: 'top-right',
+        autoClose: 3000, // Close the toast after 3 seconds (adjust as needed)
+      });
+
       dispatch(
         fetchUsers({
           method: 'GET',
           url: 'http://13.228.165.0/api/departments',
           headers: {
-            'Authorization': `Bearer ${token}` 
+            'Authorization': `Bearer ${token}`
           }
         })
       );
     } else {
-    
+      // Show an error toast
+      toast.error('Failed to delete department', {
+        position: 'top-right',
+        autoClose: 3000, // Close the toast after 3 seconds (adjust as needed)
+      });
     }
   };
 
@@ -274,10 +286,11 @@ const updatefields =[
         fields={addfields}
         onSubmit={handleAddDepartment}
         buttonLabel="Add" 
+        width="30vw"
         // onChange={(e) => setNewDepartment(e.target.value)}
       />
  <ReusableDialog
- 
+  width="30vw"
         title="Update Department"
         visible={updateVisible}
         onHide={() => setUpdateVisible(false)}
@@ -287,7 +300,7 @@ const updatefields =[
         initialValues={{ updateDepartmentName }} // Pass the initial value to the dialog
         onChange={(e) => setUpdateDepartmentName(e.target.value)} // Update the state when the user changes the input
       />
-
+  <ToastContainer />
       <SharedGrid
       data={departments}
       columns={RecruitmentColumns}
