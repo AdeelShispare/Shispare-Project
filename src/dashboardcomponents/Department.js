@@ -135,6 +135,10 @@ const updatefields =[
             }
           })
         );
+        toast.success(`${updateDepartmentName} Department updated to ${data.updateDepartmentName}  successfully`, {
+          position: 'top-right',
+          autoClose: 3000, // Close the toast after 3 seconds (adjust as needed)
+        });
         setUpdateVisible(false);
         // Reset departmentIdToUpdate and updateDepartment
         setDepartmentIdToUpdate(null);
@@ -174,7 +178,10 @@ const updatefields =[
             }
           })
         );
-       
+        toast.success(`${data.newDepartment} Department has created successfully`, {
+          position: 'top-right',
+          autoClose: 3000, // Close the toast after 3 seconds (adjust as needed)
+        });
         setNewDepartment(''); 
       
         setreusableVisible(false)

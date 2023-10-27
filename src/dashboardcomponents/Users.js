@@ -203,7 +203,7 @@ const handleProjectChange = (value) => {
         onDesignationChange={handleDesignationChange}
         onDepartmentChange={handleDepartmentChange}
         onProjectChange={handleProjectChange}
-        buttonStyle={{ marginTop: '15px',float:"right" }}
+        // buttonStyle={{ marginTop: '15px',float:"right" }}
         // onChange={(e) => setSelectedProject(e.value)}
       />
       
