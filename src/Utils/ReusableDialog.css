@@ -6,33 +6,50 @@
   
   .field {
     margin-bottom: 5px;
+    margin-top: -15px;
   }
   
-  /* .dialog-title {
-    border-bottom: 2px solid gray;
+   .dialog-title {
+    border-bottom: 2px solid rgb(231, 225, 225);
     padding-bottom: 20px;   
     width: 105%;
-   
-  } */
+
+  } 
   
   .inputfieldgap{
-    margin-top: -5px;
-    margin-bottom: -25px;
-  background-color: #F7F7F7;
+    /* margin-top: -5px; */
+    /* margin-bottom: -25px; */
+  background-color: #faf8f8;
   }
   .drp{
     width: 100%;
   }
   .reusablebtn{
     margin-top: 15px;
+    float: right;
    
   }
-  .p-dialog .p-dialog-header {
-    border-bottom: 2px solid gray;
+  /* .p-dialog .p-dialog-header {
+    border-bottom: 2px solid lightgray;
     background: #ffffff;
     color: #343a40;
     padding: 1rem;
     border-top-right-radius: 6px;
     border-top-left-radius: 6px;
-    /* margin-bottom: -5px; */
+    
+} */
+.p-button {
+  color: #ffffff;
+  background: #3EA9F5;
+  border: 1px solid #3EA9F5;
+  padding: 0.75rem 1.25rem;
+  font-size: 1rem;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+  border-radius: 6px;
+}
+/* Add this CSS to your ReusableDialog.css file */
+ .p-dropdown-item {
+  font-size: 14px; 
+  padding: 5px 10px; 
+  line-height: 1.5; 
 }

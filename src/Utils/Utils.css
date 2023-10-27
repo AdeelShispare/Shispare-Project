@@ -62,3 +62,6 @@
     /* font-size: 13px; */
   }
 }
+.help li {
+  list-style: none;
+}

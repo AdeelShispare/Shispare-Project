@@ -4,7 +4,7 @@ import { Dialog } from 'primereact/dialog';
 import './ReusableDialog.css'; // Import the CSS file to style the dialog
 import { Dropdown } from 'primereact/dropdown';
 
-const ReusableDialog = ({ visible, onHide, title, fields, onSubmit,buttonLabel,initialValues,width,onDesignationChange, onDepartmentChange, onProjectChange,buttonStyle = { marginTop: '15px' }  }) => {
+const ReusableDialog = ({ visible, onHide, title, fields, onSubmit,buttonLabel,initialValues,width,height,onDesignationChange, onDepartmentChange, onProjectChange, }) => {
   const [data, setData] = useState({});
   useEffect(() => {
     if (visible) {
@@ -25,7 +25,8 @@ const ReusableDialog = ({ visible, onHide, title, fields, onSubmit,buttonLabel,i
   };
 
   return (
-    <Dialog header={<div className="dialog-title">{title}</div>} visible={visible} onHide={onHide} style={{ width: width }}>
+    <Dialog header={<div className="dialog-title">{title}</div>} visible={visible} onHide={onHide} style={{ width: width,height }}>
+    
     <form onSubmit={handleSubmit}>
       <div className="fields-container">
         {fields.map((field, index) => (
@@ -62,7 +63,7 @@ const ReusableDialog = ({ visible, onHide, title, fields, onSubmit,buttonLabel,i
           </div>
         ))}
       </div>
-      <Button label={buttonLabel} type="submit"  className='reusablebtn' style={{ ...buttonStyle, marginTop: '15px' }}/>
+      <Button label={buttonLabel} type="submit"  className='reusablebtn' />
     </form>
   </Dialog>
 );

@@ -99,7 +99,7 @@ function Sidebar() {
       </ul>
       <ul className="help">
         <li className='li'>
-          <Link to="/help">
+          <Link to="">
             <div className="sidebar-item">
               <i className="far fa-question-circle"></i>
               <span>Help</span>

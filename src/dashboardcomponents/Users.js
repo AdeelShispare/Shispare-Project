@@ -193,6 +193,7 @@ const handleProjectChange = (value) => {
   
         <ReusableDialog
       width="50vw"
+       height="70vh"
         title="Add User"
         visible={visible}
         onHide={() => setVisible(false)}
