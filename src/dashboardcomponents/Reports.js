@@ -21,7 +21,7 @@ function Reports() {
   const [visible, setVisible] = useState(false);
   const data = [];
 
-  for (let i = 3; i <= 487; i++) {
+  for (let i = 3; i <= 17; i++) {
     const entry = {
       id: i,
       employeeNumber: `EMP00${i}`,

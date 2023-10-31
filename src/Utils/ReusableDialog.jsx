@@ -16,7 +16,7 @@ const ReusableDialog = ({
   height,
   onDesignationChange,
   onDepartmentChange,
-  onProjectChange,
+  onProjectChange,onuserChange
 }) => {
   const [data, setData] = useState({});
   useEffect(() => {
@@ -24,7 +24,7 @@ const ReusableDialog = ({
       setData(initialValues || {}); // Use the provided initialValues or an empty object
     }
   }, [visible, initialValues]);
-  const handleFieldChange = (fieldName, value) => {
+  const handleFieldChange = (fieldName, value,) => {
     setData((prevData) => ({
       ...prevData,
       [fieldName]: value,
@@ -54,13 +54,15 @@ const ReusableDialog = ({
                   options={field.options}
                   filter
                   onChange={(e) => {
-                    handleFieldChange(field.name, e.value);
+                    handleFieldChange(field.name, e.value,);
                     if (field.name === "designation") {
                       onDesignationChange(e.value);
                     } else if (field.name === "department") {
                       onDepartmentChange(e.value);
                     } else if (field.name === "project") {
                       onProjectChange(e.value);
+                    }else if (field.name === "user") {
+                      onuserChange(e.value);
                     }
                   }}
                   placeholder={`Select ${field.label}`}

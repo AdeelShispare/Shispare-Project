@@ -1,16 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../Utils/Navbar.js";
 import Sidebar from "../Utils/Sidebar";
 import SharedGrid from "./SharedGrid";
 import { BsPerson } from "react-icons/bs";
 import "./Dashboard.css";
 import Menu from "../Utils/Menu";
-
+import { useNavigate } from "react-router-dom";
 
 function Dashboard() {
   const [selectedAction, setSelectedAction] = useState(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
+const navigate=useNavigate();
+useEffect(()=>{
+  if(!localStorage.getItem("token")){
+    navigate("/")
+  }
+})
   const data = [];
 
   const handleActionClick = (entryId) => {
@@ -28,7 +33,7 @@ function Dashboard() {
     console.log("Viewing entry:", entry);
   };
 
-  for (let i = 3; i <= 17; i++) {
+  for (let i = 3; i <= 7; i++) {
     const entry = {
       id: i,
       employeeNumber: `EMP00${i}`,
