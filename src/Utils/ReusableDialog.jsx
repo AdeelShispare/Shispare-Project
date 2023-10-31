@@ -16,7 +16,8 @@ const ReusableDialog = ({
   height,
   onDesignationChange,
   onDepartmentChange,
-  onProjectChange,onuserChange
+  onProjectChange,
+  onuserChange
 }) => {
   const [data, setData] = useState({});
   useEffect(() => {
@@ -61,7 +62,7 @@ const ReusableDialog = ({
                       onDepartmentChange(e.value);
                     } else if (field.name === "project") {
                       onProjectChange(e.value);
-                    }else if (field.name === "user") {
+                    }else if (field.name === "report") {
                       onuserChange(e.value);
                     }
                   }}

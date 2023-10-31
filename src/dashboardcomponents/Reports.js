@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchUsers } from '../redux/slice/userSlice.jsx';
 import ReusableDialog from '../Utils/ReusableDialog.jsx';
 import { Dialog } from 'primereact/dialog';
+import UserData from './UserData.jsx';
 function Reports() {
   // const dispatch=useDispatch();
   // const state = useSelector((state) => state.todo);
@@ -54,6 +55,7 @@ function Reports() {
       <Sidebar/>
       <h1 style={{marginRight:"990px",paddingTop: "40px",paddingBottom:"10px" }}>Reports</h1>
       <Menu/>
+      <UserData/>
       <div className="department-container">
       <div className="departbutton">
           <Button

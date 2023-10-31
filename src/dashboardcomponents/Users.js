@@ -13,12 +13,22 @@ import { addDepartment, deleteDepartments, updateDepartments } from '../redux/sl
 import { Dropdown } from 'primereact/dropdown';
 import YourComponent from './YourComponent.jsx';
 import CreateUser from './CreateUser.js';
+import MyComponent from './MyComponent.jsx';
 function Users() {
   const token = localStorage.getItem('token');
   const dispatch=useDispatch();
-  const users = useSelector((state) => state.employeedata.data.users);
-   console.log(users)
-   
+  const data = useSelector((state) => state.employeedata.data.data);
+   console.log(data)
+   const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: '',
+    department: null,
+    designation: null,
+    project: null,
+    report_to: null,
+  });
+
    useEffect(() => {
     if (token) {
       dispatch(
@@ -39,8 +49,8 @@ function Users() {
   const [departmentOptions, setDepartmentOptions] = useState([]);
   const [designationOptions, setDesignationOptions] = useState([]);
   const [projectOptions, setProjectOptions] = useState([]);
-  const [userOptions, setuserOptions] = useState([]);
-  const [selecteduser, setSelecteduser] = useState(null)
+  const [reportOptions, setreportOptions] = useState([]);
+  const [selectedreport, setSelectedreport] = useState(null)
   
   useEffect(() => {
     const requestOptions = {
@@ -53,7 +63,7 @@ function Users() {
     fetchDepartments('http://13.228.165.0/api/departments', setDepartmentOptions, requestOptions);
     fetchDesignations('http://13.228.165.0/api/designations', setDesignationOptions, requestOptions);
     fetchProjects('http://13.228.165.0/api/projects', setProjectOptions, requestOptions);
-    fetchallusers('http://13.228.165.0/api/users', setuserOptions, requestOptions);
+    fetchallusers('http://13.228.165.0/api/users', setreportOptions, requestOptions);
   }, []);
 
   
@@ -61,8 +71,8 @@ function Users() {
     fetch(apiUrl, options)
       .then((response) => response.json())
       .then((data) => {
-        if (data && data.users && Array.isArray(data.users)) {
-          setState(data.users);
+        if (data && data.data && Array.isArray(data.data)) {
+          setState(data.data);
         }
       })
       .catch((error) => {
@@ -140,38 +150,21 @@ function Users() {
   }
 };
 
-
-
-const handleAddUser = async (newUser) => {
-  try {
-    
-    const response = await dispatch(
-      addDepartment({
-        method: 'POST',
-        url: 'http://13.228.165.0/api/userstore',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-        data: {
-          name: newUser.name,
-          email: newUser.email,
-          password: newUser.password,
-          user_relation: {
-            department_id: newUser.department.department,
-            designation_id: newUser.designation.designation,
-            project_id: newUser.project.project,
-            report_to: newUser.reports_to,
-          },
-        },
-      })
-    );
-
-    if (response.error) {
-      console.error('User creation error:', response.error);
-    } else {
-      console.log('User created successfully:', response.payload);
-      // Refresh the user list
+const handleAddUser = (data) => {
+  // Make a POST request to the API endpoint
+  fetch('http://13.228.165.0/api/userstore', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+    body: JSON.stringify(data),
+  })
+    .then((response) => response.json())
+    .then((responseData) => {
+      // Handle the response from the API if needed
+      console.log('Response from the API:', responseData);
+      // Close the dialog
       dispatch(
         fetchUsers({
           method: 'GET',
@@ -181,15 +174,12 @@ const handleAddUser = async (newUser) => {
           },
         })
       );
-      // Close the dialog
       setVisible(false);
-    }
-  } catch (error) {
-    console.error('API request failed:', error.message);
-    // Handle API request error
-  }
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
 };
-
 
   const addfields = [
     {
@@ -214,31 +204,31 @@ const handleAddUser = async (newUser) => {
       required: true,
     },
     {
-      name: 'designation',
+      name: 'designation_id',
       label: 'Designation',
       type: 'dropdown',
-      options: designationOptions.map(option => ({ label: option.designation, value: option.designation, })),
+      options: designationOptions.map(option => ({ label: option.designation, value: option.id, })),
       required: true,
     },
     {
-      name: 'department',
+      name: 'department_id',
       label: 'Department',
       type: 'dropdown',
-      options: departmentOptions.map(option => ({ label: option.department, value: option.department })),
+      options: departmentOptions.map(option => ({ label: option.department, value: option.id })),
       required: true,
     },
     {
-      name: 'project',
+      name: 'project_id',
       label: 'Project',
       type: 'dropdown',
-      options: projectOptions.map(option => ({ label: option.project, value: option.project })),
+      options: projectOptions.map(option => ({ label: option.project, value: option.id })),
       required: true,
     },
     {
-      name: 'users',
-      label: 'Report',
+      name: 'report_to',
+      label: 'report',
       type: 'dropdown',
-      options: userOptions.map(option => ({ label: option.name, value: option.name })),
+      options: reportOptions.map(option => ({ label: option.name, value: option.id })),
       required: true,
     },
     // {
@@ -259,10 +249,10 @@ const handleAddUser = async (newUser) => {
     { field: 'id', header: 'ID' },
     { field: 'name', header: ' Name' },
     { field: 'email', header: 'Email' },
-    { field: 'user_relation.department.department', header: 'Department' },
-  { field: 'user_relation.designation.designation', header: 'Designation' },
-  { field: 'user_relation.project.project', header: 'Project' },
-  { field: 'user_relation.reports_to.name', header: 'User' },
+    { field: 'department_id', header: 'Department' },
+  { field: 'designation_id', header: 'Designation' },
+  { field: 'project_id', header: 'Project' },
+  { field: 'report_to', header: 'Report to' },
     // { field: 'project', header: 'Project' },
     // { field: 'Manager', header: 'Manager Name' },
   ];  
@@ -285,10 +275,10 @@ const handleProjectChange = (value) => {
   console.log("setSelectedProject",value)
 };
 const handleuserChange = (value) => {
-  setSelecteduser(value);
+  setSelectedreport(value);
   console.log("setSelecteduser",value)
 };
-if (!users) {
+if (!data) {
   // Handle the case where data is not available yet
   return (
     <div>
@@ -307,8 +297,8 @@ if (!users) {
       <Sidebar/>
       <h1 style={{marginRight:"1020px",paddingTop: "40px",paddingBottom:"10px" }}>Users</h1>
       <Menu/>
-      {/* <YourComponent/> */}
-      <CreateUser/>
+   {/* <MyComponent/> */}
+   
       <div className="department-container">
       <div className="departbutton">
           <Button
@@ -336,7 +326,7 @@ if (!users) {
         // onChange={(e) => setSelectedProject(e.value)}
       />
       
-      <SharedGrid data={users} columns={UsersColumns}
+      <SharedGrid data={data} columns={UsersColumns}
         // handleUpdate={(id,previousdesignation) => {
         //   setdesignationIdToUpdate(id,previousdesignation);
         //   setUpdatedesignation(previousdesignation.designation); // Clear the input field
