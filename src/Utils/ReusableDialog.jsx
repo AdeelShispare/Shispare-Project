@@ -17,7 +17,8 @@ const ReusableDialog = ({
   onDesignationChange,
   onDepartmentChange,
   onProjectChange,
-  onuserChange
+  onuserChange,
+  
 }) => {
   const [data, setData] = useState({});
   useEffect(() => {
@@ -50,25 +51,25 @@ const ReusableDialog = ({
             <div key={index} className="field">
               <p>{field.label}:</p>
               {field.type === "dropdown" ? (
-                <Dropdown
-                  value={data[field.name] || ""}
-                  options={field.options}
-                  filter
-                  onChange={(e) => {
-                    handleFieldChange(field.name, e.value,);
-                    if (field.name === "designation") {
-                      onDesignationChange(e.value);
-                    } else if (field.name === "department") {
-                      onDepartmentChange(e.value);
-                    } else if (field.name === "project") {
-                      onProjectChange(e.value);
-                    }else if (field.name === "report") {
-                      onuserChange(e.value);
-                    }
-                  }}
-                  placeholder={`Select ${field.label}`}
-                  className="inputfieldgap drp"
-                />
+                 <Dropdown
+                 value={data[field.name] || ""}
+                 options={field.options}
+                 filter
+                 onChange={(e) => {
+                   handleFieldChange(field.name, e.value,);
+                   if (field.name === "designation") {
+                     onDesignationChange(e.value);
+                   } else if (field.name === "department") {
+                     onDepartmentChange(e.value);
+                   } else if (field.name === "project") {
+                     onProjectChange(e.value);
+                   }else if (field.name === "report") {
+                     onuserChange(e.value);
+                   }
+                 }}
+                 placeholder={`Select ${field.label}`}
+                 className="inputfieldgap drp"
+               />
               ) : (
                 <input
                   type={field.type}

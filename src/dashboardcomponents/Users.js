@@ -14,6 +14,8 @@ import { Dropdown } from 'primereact/dropdown';
 import YourComponent from './YourComponent.jsx';
 import CreateUser from './CreateUser.js';
 import MyComponent from './MyComponent.jsx';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function Users() {
   const token = localStorage.getItem('token');
   const dispatch=useDispatch();
@@ -51,7 +53,10 @@ function Users() {
   const [projectOptions, setProjectOptions] = useState([]);
   const [reportOptions, setreportOptions] = useState([]);
   const [selectedreport, setSelectedreport] = useState(null)
-  
+  const [updateVisible, setUpdateVisible] = useState(false);
+  const [updateuser, setUpdateuser] = useState('');
+  const [userIdToUpdate, setUserIdToUpdate] = useState(null);
+
   useEffect(() => {
     const requestOptions = {
       method: 'GET',
@@ -135,6 +140,10 @@ function Users() {
   }
   ));
   if (success) {
+    toast.success('User deleted successfully', {
+      position: 'top-right',
+      autoClose: 3000, // Close the toast after 3 seconds (adjust as needed)
+    });
     console.log(id,success)
     dispatch(
       fetchUsers({
@@ -146,7 +155,10 @@ function Users() {
       })
     );
   } else {
-  
+    toast.error('Failed to delete department', {
+      position: 'top-right',
+      autoClose: 3000, // Close the toast after 3 seconds (adjust as needed)
+    });
   }
 };
 
@@ -174,6 +186,10 @@ const handleAddUser = (data) => {
           },
         })
       );
+      toast.success(`${data.name} User has created successfully`, {
+        position: 'top-right',
+        autoClose: 3000, // Close the toast after 3 seconds (adjust as needed)
+      });
       setVisible(false);
     })
     .catch((error) => {
@@ -186,19 +202,19 @@ const handleAddUser = (data) => {
       name: 'name',
       label: 'Name',
       type: 'text',
-      placeholder: 'Muhammad Adeel',
+      placeholder: '',
       required: true,
     },
     {
       name: 'email',
-      label: 'email',
+      label: 'Email',
       type: 'email',
-      placeholder: 'adeelmuhammad@gmail.com',
+      placeholder: '',
       required: true,
     },
     {
       name: 'password',
-      label: 'password',
+      label: 'Password',
       type: 'password',
       placeholder: '******',
       required: true,
@@ -209,6 +225,7 @@ const handleAddUser = (data) => {
       type: 'dropdown',
       options: designationOptions.map(option => ({ label: option.designation, value: option.id, })),
       required: true,
+      
     },
     {
       name: 'department_id',
@@ -226,7 +243,7 @@ const handleAddUser = (data) => {
     },
     {
       name: 'report_to',
-      label: 'report',
+      label: 'Report To',
       type: 'dropdown',
       options: reportOptions.map(option => ({ label: option.name, value: option.id })),
       required: true,
@@ -256,9 +273,7 @@ const handleAddUser = (data) => {
     // { field: 'project', header: 'Project' },
     // { field: 'Manager', header: 'Manager Name' },
   ];  
-  const handleFormSubmit = (formData) => {
-   
-  };
+
   const handleDesignationChange = (value) => {
   setSelectedDesignation(value);
   console.log("setSelectedDesignation",value)
@@ -278,6 +293,57 @@ const handleuserChange = (value) => {
   setSelectedreport(value);
   console.log("setSelecteduser",value)
 };
+const handleUpdateUser = (data) => {
+  // Make a PUT request to the API endpoint with the user's ID
+  if (userIdToUpdate) {
+    fetch(`http://13.228.165.0/api/user/${userIdToUpdate}/update`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((responseData) => {
+        // Handle the response from the API if needed
+        console.log('Response from the API:', responseData);
+        if(responseData.message==="Validation error"){
+          toast.warning(`User has not updated  all fields are required to fill`, {
+            position: 'top-right',
+            autoClose: 3000, // Close the toast after 3 seconds (adjust as needed)
+          });
+        }
+        else{
+          toast.success(`${data.name} User Updated successfully`, {
+            position: 'top-right',
+            autoClose: 3000, // Close the toast after 3 seconds (adjust as needed)
+          });
+          dispatch(
+            fetchUsers({
+              method: 'GET',
+              url: 'http://13.228.165.0/api/users',
+              headers: {
+                'Authorization': `Bearer ${token}`,
+              },
+            })
+          );
+           
+        }
+        // Close the dialog
+       
+        setUpdateVisible(false);
+        setUserIdToUpdate(null);
+      })
+      .catch((error) => {
+      
+        console.error('Error:', error);
+      });
+  } else {
+    // Handle the case where userIdToUpdate is not available
+  }
+};
+const [selectedUserForUpdate, setSelectedUserForUpdate] = useState(null);
 if (!data) {
   // Handle the case where data is not available yet
   return (
@@ -311,7 +377,7 @@ if (!data) {
   
         <ReusableDialog
       width="50vw"
-       height="70vh"
+       height="85vh"
         title="Add User"
         visible={visible}
         onHide={() => setVisible(false)}
@@ -325,13 +391,59 @@ if (!data) {
         buttonStyle={{ marginTop: '15px',float:"right" }}
         // onChange={(e) => setSelectedProject(e.value)}
       />
-      
+       <ReusableDialog
+ width="50vw"
+ height="85vh"
+        title="Update Designation"
+        visible={updateVisible}
+        onHide={() => setUpdateVisible(false)}
+        fields={addfields}
+        onSubmit={handleUpdateUser}
+        buttonLabel="Update"
+        initialValues={formData}
+        onDesignationChange={handleDesignationChange}
+        onDepartmentChange={handleDepartmentChange}
+        onProjectChange={handleProjectChange}
+        onuserChange={handleuserChange}
+     
+        // initialValues={{ updateuser }} // Pass the initial value to the dialog
+      //  onChange={(e) => setUpdateuser(e.target.value)} // Update the state when the user changes the input
+      />
+        <ToastContainer />
       <SharedGrid data={data} columns={UsersColumns}
-        // handleUpdate={(id,previousdesignation) => {
-        //   setdesignationIdToUpdate(id,previousdesignation);
-        //   setUpdatedesignation(previousdesignation.designation); // Clear the input field
-        //   setUpdateVisible(true);
-        // }}
+        handleUpdate={(id, userData) => {
+          setUserIdToUpdate(id);
+          // setSelectedUserForUpdate(userData);
+          if(setUserIdToUpdate){
+            console.log('Selected Designation:', userData.designation_id);
+    console.log('Selected Department:', userData.department_id);
+    console.log('Selected Project:', userData.project_id);
+    console.log('Selected Report To:', userData.report_to);
+
+    setSelectedDesignation(userData.designation_id);
+    setSelectedDepartment(userData.department_id);
+    setSelectedProject(userData.project_id);
+    setSelectedreport(userData.report_to);
+
+    console.log('Selected Designation After Update:', selectedDesignation);
+    console.log('Selected Department After Update:', selectedDepartment);
+    console.log('Selected Project After Update:', selectedProject);
+    console.log('Selected Report To After Update:', selectedreport);
+            setFormData({
+              name: userData.name,
+              email: userData.email,
+              password: userData.password, 
+              department: userData.department_id,
+              designation: userData.designation_id,
+              project: userData.project_id,
+              report_to: userData.report_to,
+            });
+          }
+          console.log(id)
+          
+          // setUpdateuser(previoususer.name); // Clear the input field
+          setUpdateVisible(true);
+        }}
         handleDelete={handleDeleteuser} 
         />
 
