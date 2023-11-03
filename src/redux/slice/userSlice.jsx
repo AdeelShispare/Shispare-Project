@@ -92,5 +92,5 @@ const userSlice=createSlice({
   // },
 });
 
-export const { updateDepartments, deleteDepartment } = userSlice.actions;
+// export const { updateDepartments, deleteDepartment } = userSlice.actions;
 export default userSlice.reducer;

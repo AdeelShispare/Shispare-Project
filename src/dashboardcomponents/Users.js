@@ -16,6 +16,7 @@ import CreateUser from './CreateUser.js';
 import MyComponent from './MyComponent.jsx';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { makeApiRequest } from '../redux/slice/addUserSlice.jsx';
 function Users() {
   const token = localStorage.getItem('token');
   const dispatch=useDispatch();
@@ -127,57 +128,100 @@ function Users() {
   };
 
 
+  const handleDeleteuser = (id) => {
+    const requestData = {
+      method: 'DELETE',
+      url: `http://13.228.165.0/api/user/${id}/delete`,
+      headers: {
+       
+        'Authorization': `Bearer ${token}`,
+      },
 
+    };
   
-  const handleDeleteuser = async (id) => {
-    
-    const success = await dispatch(deleteDepartments({
-    method: 'DELETE',
-    url: `http://13.228.165.0/api/user/${id}/delete`,
-    headers: {
-      'Authorization': `Bearer ${token}` 
-    }
-  }
-  ));
-  if (success) {
-    toast.success('User deleted successfully', {
-      position: 'top-right',
-      autoClose: 3000, // Close the toast after 3 seconds (adjust as needed)
-    });
-    console.log(id,success)
-    dispatch(
-      fetchUsers({
-        method: 'GET',
-        url: 'http://13.228.165.0/api/users',
-        headers: {
-          'Authorization': `Bearer ${token}` 
+    dispatch(makeApiRequest(requestData))
+      .then((responseData) => {
+        console.log('Response from the API:', responseData);
+        // Handle the response as needed
+  
+        if (responseData) {
+          toast.success('User deleted successfully', {
+            position: 'top-right',
+            autoClose: 3000, // Close the toast after 3 seconds (adjust as needed)
+          });
+          console.log(id,responseData)
+          dispatch(
+            fetchUsers({
+              method: 'GET',
+              url: 'http://13.228.165.0/api/users',
+              headers: {
+                'Authorization': `Bearer ${token}` 
+              }
+            })
+          );
+        } else {
+          toast.error('Failed to delete department', {
+            position: 'top-right',
+            autoClose: 3000, // Close the toast after 3 seconds (adjust as needed)
+          });
         }
       })
-    );
-  } else {
-    toast.error('Failed to delete department', {
-      position: 'top-right',
-      autoClose: 3000, // Close the toast after 3 seconds (adjust as needed)
-    });
-  }
-};
-
+      .catch((error) => {
+        console.error('Error:', error);
+        console.error('Error response:', error.response); // Log the error response
+      });
+  };
+  
+  
+//   const handleDeleteuser = async (id) => {
+    
+//     const success = await dispatch(deleteDepartments({
+//     method: 'DELETE',
+//     url: `http://13.228.165.0/api/user/${id}/delete`,
+//     headers: {
+//       'Authorization': `Bearer ${token}` 
+//     }
+//   }
+//   ));
+//   if (success) {
+//     toast.success('User deleted successfully', {
+//       position: 'top-right',
+//       autoClose: 3000, // Close the toast after 3 seconds (adjust as needed)
+//     });
+//     console.log(id,success)
+//     dispatch(
+//       fetchUsers({
+//         method: 'GET',
+//         url: 'http://13.228.165.0/api/users',
+//         headers: {
+//           'Authorization': `Bearer ${token}` 
+//         }
+//       })
+//     );
+//   } else {
+//     toast.error('Failed to delete department', {
+//       position: 'top-right',
+//       autoClose: 3000, // Close the toast after 3 seconds (adjust as needed)
+//     });
+//   }
+// };
 const handleAddUser = (data) => {
-  // Make a POST request to the API endpoint
-  fetch('http://13.228.165.0/api/userstore', {
+  const requestData = {
     method: 'POST',
+    url: 'http://13.228.165.0/api/userstore',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`,
     },
-    body: JSON.stringify(data),
-  })
-    .then((response) => response.json())
+    data: data,
+  };
+
+  dispatch(makeApiRequest(requestData))
     .then((responseData) => {
-      // Handle the response from the API if needed
       console.log('Response from the API:', responseData);
-      // Close the dialog
-      dispatch(
+      // Handle the response as needed
+
+       dispatch(
         fetchUsers({
           method: 'GET',
           url: 'http://13.228.165.0/api/users',
@@ -186,16 +230,49 @@ const handleAddUser = (data) => {
           },
         })
       );
-      toast.success(`${data.name} User has created successfully`, {
-        position: 'top-right',
-        autoClose: 3000, // Close the toast after 3 seconds (adjust as needed)
-      });
       setVisible(false);
     })
     .catch((error) => {
       console.error('Error:', error);
+      console.error('Error response:', error.response); // Log the error response
     });
 };
+
+
+// const handleAddUser = (data) => {
+//   // Make a POST request to the API endpoint
+//   fetch('http://13.228.165.0/api/userstore', {
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json',
+//       'Authorization': `Bearer ${token}`,
+//     },
+//     body: JSON.stringify(data),
+//   })
+//     .then((response) => response.json())
+//     .then((responseData) => {
+//       // Handle the response from the API if needed
+//       console.log('Response from the API:', responseData);
+//       // Close the dialog
+//       dispatch(
+//         fetchUsers({
+//           method: 'GET',
+//           url: 'http://13.228.165.0/api/users',
+//           headers: {
+//             'Authorization': `Bearer ${token}`,
+//           },
+//         })
+//       );
+//       toast.success(`${data.name} User has created successfully`, {
+//         position: 'top-right',
+//         autoClose: 3000, // Close the toast after 3 seconds (adjust as needed)
+//       });
+//       setVisible(false);
+//     })
+//     .catch((error) => {
+//       console.error('Error:', error);
+//     });
+// };
 
   const addfields = [
     {
@@ -248,13 +325,7 @@ const handleAddUser = (data) => {
       options: reportOptions.map(option => ({ label: option.name, value: option.id })),
       required: true,
     },
-    // {
-    //   name: 'report',
-    //   label: 'Report to',
-    //   type: 'text',
-    //   placeholder: 'report to',
-    //   required: true,
-    // },
+    
   ];
    console.log(departmentOptions.map(option => ({ label: option.department, value: option.id })))
   // const [data, setData] = useState([]);
@@ -293,56 +364,105 @@ const handleuserChange = (value) => {
   setSelectedreport(value);
   console.log("setSelecteduser",value)
 };
+
+
 const handleUpdateUser = (data) => {
-  // Make a PUT request to the API endpoint with the user's ID
-  if (userIdToUpdate) {
-    fetch(`http://13.228.165.0/api/user/${userIdToUpdate}/update`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => response.json())
-      .then((responseData) => {
-        // Handle the response from the API if needed
-        console.log('Response from the API:', responseData);
-        if(responseData.message==="Validation error"){
-          toast.warning(`User has not updated  all fields are required to fill`, {
-            position: 'top-right',
-            autoClose: 3000, // Close the toast after 3 seconds (adjust as needed)
-          });
-        }
-        else{
-          toast.success(`${data.name} User Updated successfully`, {
-            position: 'top-right',
-            autoClose: 3000, // Close the toast after 3 seconds (adjust as needed)
-          });
-          dispatch(
-            fetchUsers({
-              method: 'GET',
-              url: 'http://13.228.165.0/api/users',
-              headers: {
-                'Authorization': `Bearer ${token}`,
-              },
-            })
-          );
-           
-        }
-        // Close the dialog
-       
-        setUpdateVisible(false);
+  const requestData = {
+    method: 'PUT',
+    url: `http://13.228.165.0/api/user/${userIdToUpdate}/update`,
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+    data: data,
+  };
+
+  dispatch(makeApiRequest(requestData))
+    .then((responseData) => {
+      console.log('Response from the API:', responseData);
+      // Handle the response as needed
+      if(responseData.type==="users/makeApiRequest/rejected"){
+                  toast.warning(`User has not updated  all fields are required to fill`, {
+                    position: 'top-right',
+                    autoClose: 3000, // Close the toast after 3 seconds (adjust as needed)
+                  });
+                }
+                else{
+                  toast.success(`${data.name} User Updated successfully`, {
+                    position: 'top-right',
+                    autoClose: 3000, // Close the toast after 3 seconds (adjust as needed)
+                  });
+       dispatch(
+        fetchUsers({
+          method: 'GET',
+          url: 'http://13.228.165.0/api/users',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        })
+      );
+      }
+      setUpdateVisible(false);
         setUserIdToUpdate(null);
-      })
-      .catch((error) => {
-      
-        console.error('Error:', error);
-      });
-  } else {
-    // Handle the case where userIdToUpdate is not available
-  }
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+      console.error('Error response:', error.response); // Log the error response
+    });
 };
+
+
+// const handleUpdateUser = (data) => {
+//   // Make a PUT request to the API endpoint with the user's ID
+//   if (userIdToUpdate) {
+    
+//     fetch(`http://13.228.165.0/api/user/${userIdToUpdate}/update`, {
+//       method: 'PUT',
+//       headers: {
+//         'Content-Type': 'application/json',
+//         'Authorization': `Bearer ${token}`,
+//       },
+//       body: JSON.stringify(data),
+//     })
+//       .then((response) => response.json())
+//       .then((responseData) => {
+//         // Handle the response from the API if needed
+//         console.log('Response from the API:', responseData);
+//         if(responseData.message==="Validation error"){
+//           toast.warning(`User has not updated  all fields are required to fill`, {
+//             position: 'top-right',
+//             autoClose: 3000, // Close the toast after 3 seconds (adjust as needed)
+//           });
+//         }
+//         else{
+//           toast.success(`${data.name} User Updated successfully`, {
+//             position: 'top-right',
+//             autoClose: 3000, // Close the toast after 3 seconds (adjust as needed)
+//           });
+//           dispatch(
+//             fetchUsers({
+//               method: 'GET',
+//               url: 'http://13.228.165.0/api/users',
+//               headers: {
+//                 'Authorization': `Bearer ${token}`,
+//               },
+//             })
+//           );
+           
+//         }
+//         // Close the dialog
+       
+//         setUpdateVisible(false);
+//         setUserIdToUpdate(null);
+//       })
+//       .catch((error) => {
+      
+//         console.error('Error:', error);
+//       });
+//   } else {
+//     // Handle the case where userIdToUpdate is not available
+//   }
+// };
 const [selectedUserForUpdate, setSelectedUserForUpdate] = useState(null);
 if (!data) {
   // Handle the case where data is not available yet

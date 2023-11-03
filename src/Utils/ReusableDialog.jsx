@@ -55,6 +55,8 @@ const ReusableDialog = ({
                  value={data[field.name] || ""}
                  options={field.options}
                  filter
+                 optionLabel="label" // Set the optionLabel to 'label' to display the label property
+  optionValue="value"
                  onChange={(e) => {
                    handleFieldChange(field.name, e.value,);
                    if (field.name === "designation") {
