@@ -220,7 +220,17 @@ const handleAddUser = (data) => {
     .then((responseData) => {
       console.log('Response from the API:', responseData);
       // Handle the response as needed
-
+      if(responseData.type==="users/makeApiRequest/rejected"){
+        toast.warning(`User has not created all fields are required to fill`, {
+          position: 'top-right',
+          autoClose: 3000, // Close the toast after 3 seconds (adjust as needed)
+        });
+      }
+      else{
+        toast.success(`${data.name} User Created successfully`, {
+          position: 'top-right',
+          autoClose: 3000, // Close the toast after 3 seconds (adjust as needed)
+        });
        dispatch(
         fetchUsers({
           method: 'GET',
@@ -230,6 +240,7 @@ const handleAddUser = (data) => {
           },
         })
       );
+      }
       setVisible(false);
     })
     .catch((error) => {
