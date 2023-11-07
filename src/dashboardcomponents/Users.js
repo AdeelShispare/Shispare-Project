@@ -26,9 +26,9 @@ function Users() {
     name: '',
     email: '',
     password: '',
-    department: null,
-    designation: null,
-    project: null,
+    department_id: null,
+    designation_id: null,
+    project_id: null,
     report_to: null,
   });
 
@@ -85,7 +85,6 @@ function Users() {
         console.error('Error fetching users from API:', error);
       });
   };
-
   const fetchDesignations = (apiUrl, setState, options) => {
     fetch(apiUrl, options)
       .then((response) => response.json())
@@ -220,17 +219,7 @@ const handleAddUser = (data) => {
     .then((responseData) => {
       console.log('Response from the API:', responseData);
       // Handle the response as needed
-      if(responseData.type==="users/makeApiRequest/rejected"){
-        toast.warning(`User has not created all fields are required to fill`, {
-          position: 'top-right',
-          autoClose: 3000, // Close the toast after 3 seconds (adjust as needed)
-        });
-      }
-      else{
-        toast.success(`${data.name} User Created successfully`, {
-          position: 'top-right',
-          autoClose: 3000, // Close the toast after 3 seconds (adjust as needed)
-        });
+
        dispatch(
         fetchUsers({
           method: 'GET',
@@ -240,7 +229,6 @@ const handleAddUser = (data) => {
           },
         })
       );
-      }
       setVisible(false);
     })
     .catch((error) => {
@@ -285,63 +273,70 @@ const handleAddUser = (data) => {
 //     });
 // };
 
-  const addfields = [
-    {
-      name: 'name',
-      label: 'Name',
-      type: 'text',
-      placeholder: '',
-      required: true,
-    },
-    {
-      name: 'email',
-      label: 'Email',
-      type: 'email',
-      placeholder: '',
-      required: true,
-    },
-    {
-      name: 'password',
-      label: 'Password',
-      type: 'password',
-      placeholder: '******',
-      required: true,
-    },
-    {
-      name: 'designation_id',
-      label: 'Designation',
-      type: 'dropdown',
-      options: designationOptions.map(option => ({ label: option.designation, value: option.id, })),
-      required: true,
-      
-    },
-    {
-      name: 'department_id',
-      label: 'Department',
-      type: 'dropdown',
-      options: departmentOptions.map(option => ({ label: option.department, value: option.id })),
-      required: true,
-    },
-    {
-      name: 'project_id',
-      label: 'Project',
-      type: 'dropdown',
-      options: projectOptions.map(option => ({ label: option.project, value: option.id })),
-      required: true,
-    },
-    {
-      name: 'report_to',
-      label: 'Report To',
-      type: 'dropdown',
-      options: reportOptions.map(option => ({ label: option.name, value: option.id })),
-      required: true,
-    },
-    
-  ];
-   console.log(departmentOptions.map(option => ({ label: option.department, value: option.id })))
-  // const [data, setData] = useState([]);
+const addfields = [
+  {
+    name: 'name',
+    label: 'Name',
+    type: 'text',
+    placeholder: '',
+    required: true,
+  },
+  {
+    name: 'email',
+    label: 'Email',
+    type: 'email',
+    placeholder: '',
+    required: true,
+  },
+  {
+    name: 'password',
+    label: 'Password',
+    type: 'password',
+    placeholder: '******',
+    required: true,
+  },
+  {
+    name: 'designation_id',
+    label: 'Designation',
+    type: 'dropdown',
+    options: designationOptions.map(option => ({
+      label: option.designation,
+      value: option.id,
+    })),
+    required: true,
+  },
+  {
+    name: 'department_id',
+    label: 'Department',
+    type: 'dropdown',
+    options: departmentOptions.map(option => ({
+      label: option.department,
+      value: option.id,
+    })),
+    required: true,
+  },
+  {
+    name: 'project_id',
+    label: 'Project',
+    type: 'dropdown',
+    options: projectOptions.map(option => ({
+      label: option.project,
+      value: option.id,
+    })),
+    required: true,
+  },
+  {
+    name: 'report_to',
+    label: 'Report To',
+    type: 'dropdown',
+    options: reportOptions.map(option => ({
+      label: option.name,
+      value: option.id,
+    })),
+    required: true,
+  },
+];
 
- 
 
 
   const UsersColumns = [
@@ -391,17 +386,17 @@ const handleUpdateUser = (data) => {
   dispatch(makeApiRequest(requestData))
     .then((responseData) => {
       console.log('Response from the API:', responseData);
-      // Handle the response as needed
+     
       if(responseData.type==="users/makeApiRequest/rejected"){
                   toast.warning(`User has not updated  all fields are required to fill`, {
                     position: 'top-right',
-                    autoClose: 3000, // Close the toast after 3 seconds (adjust as needed)
+                    autoClose: 3000, 
                   });
                 }
                 else{
                   toast.success(`${data.name} User Updated successfully`, {
                     position: 'top-right',
-                    autoClose: 3000, // Close the toast after 3 seconds (adjust as needed)
+                    autoClose: 3000, 
                   });
        dispatch(
         fetchUsers({
@@ -418,7 +413,7 @@ const handleUpdateUser = (data) => {
     })
     .catch((error) => {
       console.error('Error:', error);
-      console.error('Error response:', error.response); // Log the error response
+      console.error('Error response:', error.response); 
     });
 };
 
@@ -515,10 +510,10 @@ if (!data) {
         fields={addfields}
         onSubmit={handleAddUser}
         buttonLabel="Add" 
-        onDesignationChange={handleDesignationChange}
-        onDepartmentChange={handleDepartmentChange}
-        onProjectChange={handleProjectChange}
-        onuserChange={handleuserChange}
+        // onDesignationChange={handleDesignationChange}
+        // onDepartmentChange={handleDepartmentChange}
+        // onProjectChange={handleProjectChange}
+        // onuserChange={handleuserChange}
         buttonStyle={{ marginTop: '15px',float:"right" }}
         // onChange={(e) => setSelectedProject(e.value)}
       />
@@ -532,10 +527,10 @@ if (!data) {
         onSubmit={handleUpdateUser}
         buttonLabel="Update"
         initialValues={formData}
-        onDesignationChange={handleDesignationChange}
-        onDepartmentChange={handleDepartmentChange}
-        onProjectChange={handleProjectChange}
-        onuserChange={handleuserChange}
+        // onDesignationChange={handleDesignationChange}
+        // onDepartmentChange={handleDepartmentChange}
+        // onProjectChange={handleProjectChange}
+        // onuserChange={handleuserChange}
      
         // initialValues={{ updateuser }} // Pass the initial value to the dialog
       //  onChange={(e) => setUpdateuser(e.target.value)} // Update the state when the user changes the input
@@ -544,7 +539,7 @@ if (!data) {
       <SharedGrid data={data} columns={UsersColumns}
         handleUpdate={(id, userData) => {
           setUserIdToUpdate(id);
-          // setSelectedUserForUpdate(userData);
+           setSelectedUserForUpdate(userData);
           if(setUserIdToUpdate){
             console.log('Selected Designation:', userData.designation_id);
     console.log('Selected Department:', userData.department_id);
@@ -564,9 +559,9 @@ if (!data) {
               name: userData.name,
               email: userData.email,
               password: userData.password, 
-              department: userData.department_id,
-              designation: userData.designation_id,
-              project: userData.project_id,
+              department_id: userData.department_id,
+              designation_id: userData.designation_id,
+              project_id: userData.project_id,
               report_to: userData.report_to,
             });
           }

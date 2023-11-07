@@ -6,6 +6,6 @@ export const store=configureStore({
     reducer:{
 employeedata:todoReducer,
 departmentdata:departmentReducer,
-adduserdata:adduserreducer,
+users:adduserreducer,
     },
 });

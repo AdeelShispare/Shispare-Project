@@ -1,61 +1,148 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from "react";
+import ReusableDialog from "../Utils/ReusableDialog";
+// import "./YourComponent.css"
 
-function YourComponent() {
-  const [userData, setUserData] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const token = localStorage.getItem('token');
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('http://13.228.165.0/api/users', {
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'Authorization': `Bearer ${token}` 
-          },
-        });
+const YourComponent = () => {
+  const [dialogVisible, setDialogVisible] = useState(false);
+  const [employees, setEmployees] = useState([]);
+  const [selectedEmployee, setSelectedEmployee] = useState(null);
+  const [selectedDepartment, setSelectedDepartment] = useState(null);
+  const [selectedDesignation, setSelectedDesignation] = useState(null);
 
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
+  // const employees = [
+  //   // Your employee data
+  //   {
+  //     id: 1,
+  //     name: "John",
+  //     department: "HR",
+  //     designation: "Manager",
+  //   },
+  //   // Add more employee data
+  // ];
 
-        const data = await response.json();
-        setUserData(data);
-        setIsLoading(false);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-        setError(error);
-        setIsLoading(false);
-      }
-    };
+  const departments = [
+    // Your department data
+    { label: "HR", value: "hrere" },
+    { label: "df", value: "df" },
+    // Add more department data
+  ];
 
-    fetchData();
-  }, []);
+  const designations = [
+    // Your designation data
+    { label: "Manager", value: "manager" },
+    { label: "er", value: "adeel" },
+    // Add more designation data
+  ];
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  const handleEditEmployee = (employee) => {
+    setSelectedEmployee(employee);
+    setSelectedDepartment(employee.department);
+    setSelectedDesignation(employee.designation);
+    setDialogVisible(true);
+  };
 
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
+  const handleUpdateEmployee = (updatedEmployee) => {
+    // Update the employee data in the state
+    const updatedEmployees = employees.map((employee) =>
+      employee.id === updatedEmployee.id ? updatedEmployee : employee
+    );
+    setEmployees(updatedEmployees);
+
+    setDialogVisible(false);
+  };
+
+  const handleAddEmployee = (newEmployee) => {
+    // Add the new employee data to the state
+    setEmployees([...employees, newEmployee]);
+
+    setDialogVisible(false);
+  };
+
+  const handleDeleteEmployee = (employeeId) => {
+    // Remove the employee data from the state
+    const updatedEmployees = employees.filter(
+      (employee) => employee.id !== employeeId
+    );
+    setEmployees(updatedEmployees);
+  };
+
+  
+  const handleDesignationChange = (value) => {
+    setSelectedDesignation(value);
+    console.log("setSelectedDesignation",value)
+  };
+  
+  const handleDepartmentChange = (value) => {
+    
+    setSelectedDepartment(value);
+    console.log("setSelectedDepartment",value)
+  };
 
   return (
-    <div>
-      <h1>User Data</h1>
-      <p><strong>ID:</strong> {userData.id}</p>
-      <p><strong>Name:</strong> {userData.name}</p>
-      <p><strong>Email:</strong> {userData.email}</p>
-      <p><strong>Status:</strong> {userData.status}</p>
-      <p><strong>Created At:</strong> {userData.created_at}</p>
-      <p><strong>Updated At:</strong> {userData.updated_at}</p>
-      <p><strong>Department:</strong> {userData.department?.department || 'N/A'}</p>
-      <p><strong>Designation:</strong> {userData.designation?.designation || 'N/A'}</p>
-      <p><strong>Project:</strong> {userData.project?.project || 'N/A'}</p>
-      <p><strong>Reports To:</strong> {userData.reports_to?.name || 'N/A'}</p>
+    <div className="employee-container" >
+    <h1>Employee Management</h1>
+      <button onClick={() => setDialogVisible(true)}>Add Employee</button>
+
+      {/* Display the employee table */}
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Department</th>
+            <th>Designation</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {employees.map((employee) => (
+            <tr key={employee.id}>
+              <td>{employee.name}</td>
+              <td>{employee.department}</td>
+              <td>{employee.designation}</td>
+              <td>
+                <button onClick={() => handleEditEmployee(employee)}>Edit</button>
+                <button onClick={() => handleDeleteEmployee(employee.id)}>Delete</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      <ReusableDialog
+        visible={dialogVisible}
+        onHide={() => setDialogVisible(false)}
+        title={selectedEmployee ? "Edit Employee" : "Add Employee"}
+        fields={[
+          {
+            name: "name",
+            label: "Name",
+            type: "text",
+            required: true,
+          },
+          {
+            name: "department",
+            label: "Department",
+            type: "dropdown",
+            options: departments,
+            required: true,
+          },
+          {
+            name: "designation",
+            label: "Designation",
+            type: "dropdown",
+            options: designations,
+            required: true,
+          },
+        ]}
+        onSubmit={selectedEmployee ? handleUpdateEmployee : handleAddEmployee}
+        buttonLabel={selectedEmployee ? "Update" : "Add"}
+        initialValues={selectedEmployee}
+        onDesignationChange={setSelectedDesignation}
+        onDepartmentChange={setSelectedDepartment}
+      />
     </div>
+ 
   );
-}
+};
 
 export default YourComponent;

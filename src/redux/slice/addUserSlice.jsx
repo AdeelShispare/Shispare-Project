@@ -32,6 +32,7 @@ export const makeApiRequest = createAsyncThunk('users/makeApiRequest', async (in
     // } else {
     //   throw new Error('API request failed');
     // }
+    return response.data;
   } catch (error) {
     throw error;
   }
@@ -44,12 +45,15 @@ const initialState = {
     isLoading: false,
     users: [], 
     isError: false,
+    validationErrors: [],
   };
 const adduserSlice = createSlice({
   name: 'users',
   initialState,
   reducers: {
-    // Add other non-async actions here if needed
+    clearValidationErrors: (state) => {
+      state.validationErrors = [];
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(makeApiRequest.fulfilled, (state, action) => {
@@ -59,10 +63,12 @@ const adduserSlice = createSlice({
     builder.addCase(makeApiRequest.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
+        console.log(action.error.message)
+        state.validationErrors = action.payload || [];
     });
   },
 });
 
-export const { } = adduserSlice.actions;
+export const { clearValidationErrors } = adduserSlice.actions;
 
 export default adduserSlice.reducer;

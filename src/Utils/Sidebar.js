@@ -73,14 +73,14 @@ function Sidebar() {
           </Link>
         </li>
         <li className='li'>
-          <Link to="/payroll"
-          onClick={() => handleLinkClick("/payroll")}
-          className={activeLink === "/payroll" ? "active" : ""}
+          <Link to="/employee"
+          onClick={() => handleLinkClick("/employee")}
+          className={activeLink === "/employee" ? "active" : ""}
           >
             <div className="sidebar-item">
               <i className="fa-solid fa-hand-holding-dollar"></i>
-              <span>Payroll</span>
-              <i class="fas fa-chevron-circle-down adeel"></i>
+              <span>Employee</span>
+             
             </div>
           </Link>
         </li>
