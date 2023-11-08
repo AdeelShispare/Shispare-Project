@@ -2,7 +2,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-export const makeApiRequest = createAsyncThunk('users/makeApiRequest', async (inputData, { dispatch }) => {
+export const makeApiRequest = createAsyncThunk('users/makeApiRequest', async (inputData, { dispatch,rejectWithValue  }) => {
   const { method, url, headers, data } = inputData;
 
   try {
@@ -34,7 +34,7 @@ export const makeApiRequest = createAsyncThunk('users/makeApiRequest', async (in
     // }
     return response.data;
   } catch (error) {
-    throw error;
+    return rejectWithValue(error);
   }
 });
 
@@ -45,15 +45,14 @@ const initialState = {
     isLoading: false,
     users: [], 
     isError: false,
-    validationErrors: [],
+    validationErrors: null, 
+
   };
 const adduserSlice = createSlice({
   name: 'users',
   initialState,
   reducers: {
-    clearValidationErrors: (state) => {
-      state.validationErrors = [];
-    },
+    
   },
   extraReducers: (builder) => {
     builder.addCase(makeApiRequest.fulfilled, (state, action) => {
@@ -63,12 +62,11 @@ const adduserSlice = createSlice({
     builder.addCase(makeApiRequest.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
-        console.log(action.error.message)
-        state.validationErrors = action.payload || [];
+        state.validationErrors = action.payload;
+        console.log('Validation Errors:', state.validationErrors);
     });
   },
 });
 
-export const { clearValidationErrors } = adduserSlice.actions;
 
 export default adduserSlice.reducer;

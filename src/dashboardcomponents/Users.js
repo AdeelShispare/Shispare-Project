@@ -21,6 +21,7 @@ function Users() {
   const token = localStorage.getItem('token');
   const dispatch=useDispatch();
   const data = useSelector((state) => state.employeedata.data.data);
+  const [validationErrors, setValidationErrors] = useState({});
    console.log(data)
    const [formData, setFormData] = useState({
     name: '',
@@ -217,8 +218,10 @@ const handleAddUser = (data) => {
 
   dispatch(makeApiRequest(requestData))
     .then((responseData) => {
-      console.log('Response from the API:', responseData);
+      console.log('Response from the API add:', responseData);
       // Handle the response as needed
+      const apierr = responseData?.payload?.response?.data?.errors;
+console.log("adeel",responseData.payload.response.data.errors)
 
        dispatch(
         fetchUsers({
@@ -229,7 +232,8 @@ const handleAddUser = (data) => {
           },
         })
       );
-      setVisible(false);
+      
+       setVisible(false);
     })
     .catch((error) => {
       console.error('Error:', error);
@@ -510,6 +514,7 @@ if (!data) {
         fields={addfields}
         onSubmit={handleAddUser}
         buttonLabel="Add" 
+        validationErrors={validationErrors}
         // onDesignationChange={handleDesignationChange}
         // onDepartmentChange={handleDepartmentChange}
         // onProjectChange={handleProjectChange}
@@ -540,21 +545,7 @@ if (!data) {
         handleUpdate={(id, userData) => {
           setUserIdToUpdate(id);
            setSelectedUserForUpdate(userData);
-          if(setUserIdToUpdate){
-            console.log('Selected Designation:', userData.designation_id);
-    console.log('Selected Department:', userData.department_id);
-    console.log('Selected Project:', userData.project_id);
-    console.log('Selected Report To:', userData.report_to);
-
-    setSelectedDesignation(userData.designation_id);
-    setSelectedDepartment(userData.department_id);
-    setSelectedProject(userData.project_id);
-    setSelectedreport(userData.report_to);
-
-    console.log('Selected Designation After Update:', selectedDesignation);
-    console.log('Selected Department After Update:', selectedDepartment);
-    console.log('Selected Project After Update:', selectedProject);
-    console.log('Selected Report To After Update:', selectedreport);
+          
             setFormData({
               name: userData.name,
               email: userData.email,
@@ -564,7 +555,7 @@ if (!data) {
               project_id: userData.project_id,
               report_to: userData.report_to,
             });
-          }
+          
           console.log(id)
           
           // setUpdateuser(previoususer.name); // Clear the input field
