@@ -18,14 +18,15 @@ const ReusableDialog = ({
   onDepartmentChange,
   onProjectChange,
   onuserChange,
+  validationErrors,
 }) => {
   const [data, setData] = useState({});
-  const [validationErrors, setValidationErrors] = useState({});
+  // const [validationErrors, setValidationErrors] = useState({});
 
   useEffect(() => {
     if (visible) {
       setData(initialValues || {});
-      setValidationErrors({}); // Clear validation errors when the dialog is opened
+     // Clear validation errors when the dialog is opened
     }
   }, [visible, initialValues]);
 
@@ -35,37 +36,17 @@ const ReusableDialog = ({
       [fieldName]: value,
     }));
     // Clear the validation error for the field
-    setValidationErrors((prevErrors) => ({
-      ...prevErrors,
-      [fieldName]: undefined,
-    }));
+
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // Validate each field before submitting
-    const errors = {};
-    fields.forEach((field) => {
-      if (field.required && !data[field.name]) {
-        errors[field.name] = `${field.label} is required.`;
-      }
-      if (field.name === 'password') {
-        if (!data[field.name]) {
-          errors[field.name] = 'Password is required.';
-        } else if (data[field.name].length < 8) {
-          errors[field.name] = 'Password must be at least 8 characters.';
-        }
-      }
-     
-    });
+   
 
-    if (Object.keys(errors).length === 0) {
-    
+ 
       onSubmit(data);
-    } else {
-      
-      setValidationErrors(errors);
-    }
+  
   };
 
   return (
@@ -94,9 +75,9 @@ const ReusableDialog = ({
                     placeholder={`Select ${field.label}`}
                     className="inputfieldgap drp"
                   />
-                  {validationErrors[field.name] && (
-                    <small className="p-error">{validationErrors[field.name]}</small>
-                  )}
+                 {validationErrors && validationErrors[field.name] && (
+                <div className="p-error">{validationErrors[field.name]}</div>
+              )}
                 </div>
               ) : (
                 <div>
@@ -110,9 +91,9 @@ const ReusableDialog = ({
                     onChange={(e) => handleFieldChange(field.name, e.target.value)}
                     className="inputfieldgap"
                   />
-                  {validationErrors[field.name] && (
-                    <small className="p-error">{validationErrors[field.name]}</small>
-                  )}
+                 {validationErrors && validationErrors[field.name] && (
+                <div className="p-error">{validationErrors[field.name]}</div>
+              )}
                 </div>
               )}
             </div>

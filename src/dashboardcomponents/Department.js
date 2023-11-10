@@ -49,14 +49,6 @@ const updatefields =[
   },
 ];
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    // Handle the form submission here, data contains the form field values
-    handleAddDepartment();
-    console.log(e);
-    setVisible(false);
-  };
-
  
   console.log(departments);
    useEffect(() => {
@@ -226,7 +218,7 @@ const updatefields =[
     <div>
       <Navbar />
       <Sidebar />
-      <h1 style={{ marginRight: "920px", paddingTop: "40px",paddingBottom:"10px" }}>Department</h1>
+      <h1 style={{ marginRight: "920px", paddingTop: "32px",paddingBottom:"10px" }}>Department</h1>
       <Menu />
       <div className="department-container">
         <div className="departbutton">

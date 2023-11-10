@@ -34,7 +34,12 @@ export const makeApiRequest = createAsyncThunk('users/makeApiRequest', async (in
     // }
     return response.data;
   } catch (error) {
-    return rejectWithValue(error);
+    const customError = {
+      status: error.response?.status || 500,
+      message: error.message || 'Unknown error',
+      data: error.response?.data || null,
+    };
+    return rejectWithValue(customError);
   }
 });
 
@@ -62,8 +67,11 @@ const adduserSlice = createSlice({
     builder.addCase(makeApiRequest.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
-        state.validationErrors = action.payload;
-        console.log('Validation Errors:', state.validationErrors);
+        const customError = action.payload;
+  
+        // Extract and handle the error details accordingly
+        state.validationErrors = customError.message;
+        console.log('Custom Validation Errors:', state.validationErrors);
     });
   },
 });

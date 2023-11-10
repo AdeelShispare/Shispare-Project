@@ -196,7 +196,7 @@ const updatefields =[
     <div>
       <Navbar />
       <Sidebar />
-      <h1 style={{ marginRight: "900px", paddingTop: "40px",paddingBottom:"10px" }}>Designations</h1>
+      <h1 style={{ marginRight: "900px", paddingTop: "32px",paddingBottom:"10px" }}>Designations</h1>
       <Menu />
       <div className="department-container">
         <div className="departbutton">

@@ -53,7 +53,7 @@ function Reports() {
         <Navbar/>
         
       <Sidebar/>
-      <h1 style={{marginRight:"990px",paddingTop: "40px",paddingBottom:"10px" }}>Reports</h1>
+      <h1 style={{marginRight:"990px",paddingTop: "32px",paddingBottom:"10px" }}>Reports</h1>
       <Menu/>
       {/* <UserData/> */}
       <div className="department-container">

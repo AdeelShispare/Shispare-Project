@@ -306,7 +306,7 @@ const handleuserChange = (value) => {
     <div>
          <Navbar/>
       <Sidebar/>
-      <h1 style={{marginRight:"960px",paddingTop: "40px",paddingBottom:"10px" }}>Employee</h1>
+      <h1 style={{marginRight:"960px",paddingTop: "32px",paddingBottom:"10px" }}>Employee</h1>
      <Menu/>
   {/* <YourComponent/> */}
      <div className="department-container">

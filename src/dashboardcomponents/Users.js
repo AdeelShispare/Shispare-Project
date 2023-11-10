@@ -220,10 +220,16 @@ const handleAddUser = (data) => {
     .then((responseData) => {
       console.log('Response from the API add:', responseData);
       // Handle the response as needed
-      const apierr = responseData?.payload?.response?.data?.errors;
-console.log("adeel",responseData.payload.response.data.errors)
+      const apierr = responseData?.payload?.data?.errors;
 
-       dispatch(
+      if (apierr) {
+        // Handle validation errors here
+        setValidationErrors(apierr);
+        return; // Stop further execution if there are validation errors
+      }
+
+      // If no validation errors, dispatch action to fetch users
+      dispatch(
         fetchUsers({
           method: 'GET',
           url: 'http://13.228.165.0/api/users',
@@ -232,8 +238,10 @@ console.log("adeel",responseData.payload.response.data.errors)
           },
         })
       );
-      
-       setVisible(false);
+
+      setVisible(false);
+      // Clear validation errors after successful submission
+      clearValidationErrors();
     })
     .catch((error) => {
       console.error('Error:', error);
@@ -241,42 +249,61 @@ console.log("adeel",responseData.payload.response.data.errors)
     });
 };
 
-
-// const handleAddUser = (data) => {
-//   // Make a POST request to the API endpoint
-//   fetch('http://13.228.165.0/api/userstore', {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//       'Authorization': `Bearer ${token}`,
-//     },
-//     body: JSON.stringify(data),
-//   })
-//     .then((response) => response.json())
-//     .then((responseData) => {
-//       // Handle the response from the API if needed
-//       console.log('Response from the API:', responseData);
-//       // Close the dialog
-//       dispatch(
-//         fetchUsers({
-//           method: 'GET',
-//           url: 'http://13.228.165.0/api/users',
-//           headers: {
-//             'Authorization': `Bearer ${token}`,
-//           },
-//         })
-//       );
-//       toast.success(`${data.name} User has created successfully`, {
-//         position: 'top-right',
-//         autoClose: 3000, // Close the toast after 3 seconds (adjust as needed)
-//       });
-//       setVisible(false);
-//     })
-//     .catch((error) => {
-//       console.error('Error:', error);
-//     });
-// };
-
+  const clearValidationErrors = () => {
+    setValidationErrors({});
+  };
+  // const handleAddUser = async (data) => {
+  //   try {
+  //     const response = await fetch('http://13.228.165.0/api/userstore', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         'Authorization': `Bearer ${token}`,
+  //       },
+  //       body: JSON.stringify(data),
+  //     });
+  
+  //     if (!response.ok) {
+  //       // If the response is not successful, handle API validation errors
+  //       const responseData = await response.json();
+  // console.log("responseData  error",responseData)
+  //       if (responseData.errors) {
+  //         // Set API validation errors in the state to display them in the dialog
+  //         setValidationErrors(responseData.errors);
+  //       } else {
+  //         // Handle other types of errors
+  //         throw new Error('Something went wrong');
+  //       }
+  //     } else {
+  //       // If the response is successful, handle it as needed
+  //       const responseData = await response.json();
+  //       console.log('Response from the API:', responseData);
+  
+  //       // Close the dialog, fetch users, and show a success message
+  //       dispatch(
+  //         fetchUsers({
+  //           method: 'GET',
+  //           url: 'http://13.228.165.0/api/users',
+  //           headers: {
+  //             'Authorization': `Bearer ${token}`,
+  //           },
+  //         })
+  //       );
+  
+  //       toast.success(`${data.name} User has been created successfully`, {
+  //         position: 'top-right',
+  //         autoClose: 3000,
+  //       });
+  
+  //       setVisible(false);
+  //     }
+  //   } catch (error) {
+  //     console.error('Error:', error.message);
+  //     // Handle other types of errors if needed
+  //   }
+  // };
+  // ;
+  
 const addfields = [
   {
     name: 'name',
@@ -390,7 +417,28 @@ const handleUpdateUser = (data) => {
   dispatch(makeApiRequest(requestData))
     .then((responseData) => {
       console.log('Response from the API:', responseData);
-     
+      const apierr = responseData?.payload?.data?.errors;
+
+      if (apierr) {
+        // Handle validation errors here
+        setValidationErrors(apierr);
+        return; // Stop further execution if there are validation errors
+      }
+
+      // If no validation errors, dispatch action to fetch users
+      dispatch(
+        fetchUsers({
+          method: 'GET',
+          url: 'http://13.228.165.0/api/users',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        })
+      );
+
+      setVisible(false);
+      // Clear validation errors after successful submission
+      clearValidationErrors();
       if(responseData.type==="users/makeApiRequest/rejected"){
                   toast.warning(`User has not updated  all fields are required to fill`, {
                     position: 'top-right',
@@ -491,7 +539,7 @@ if (!data) {
     <div>
       <Navbar/>
       <Sidebar/>
-      <h1 style={{marginRight:"1020px",paddingTop: "40px",paddingBottom:"10px" }}>Users</h1>
+      <h1 style={{marginRight:"1020px",paddingTop: "32px",paddingBottom:"10px" }}>Users</h1>
       <Menu/>
    {/* <MyComponent/> */}
    
@@ -510,7 +558,8 @@ if (!data) {
        height="85vh"
         title="Add User"
         visible={visible}
-        onHide={() => setVisible(false)}
+        onHide={() => {setVisible(false)
+       clearValidationErrors()}}
         fields={addfields}
         onSubmit={handleAddUser}
         buttonLabel="Add" 
@@ -527,11 +576,13 @@ if (!data) {
  height="85vh"
         title="Update Designation"
         visible={updateVisible}
-        onHide={() => setUpdateVisible(false)}
+        onHide={() => {setUpdateVisible(false)
+          clearValidationErrors()}}
         fields={addfields}
         onSubmit={handleUpdateUser}
         buttonLabel="Update"
         initialValues={formData}
+        validationErrors={validationErrors}
         // onDesignationChange={handleDesignationChange}
         // onDepartmentChange={handleDepartmentChange}
         // onProjectChange={handleProjectChange}
